@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+use yii\helpers\Html;
+
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
@@ -11,14 +13,14 @@ $this->title = 'My Yii Application';
             <?foreach($model as $category):?>
                 <div class="col-lg-3">
 
+                    <div class="category-image">
+                        <?=Html::img('@web/images/' . $category->photo, ['width' => 90 ])  ;?>
+                    </div>
 
                     <div class="category-name">
-                        <?=$category->name;?>
+                        <?=Html::a($category->name, 'category/' . $category->alias)  ;?>
                     </div>
 
-                    <div class="category-image">
-                        <?=$category->photo;?>
-                    </div>
 
 
                 </div>
