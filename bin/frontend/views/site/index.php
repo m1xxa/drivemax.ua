@@ -15,7 +15,16 @@ $this->title = 'My Yii Application';
                 <div class="col-lg-3">
 
                     <div class="category-image">
-                        <?=Html::img('@web/images/' . $category->photo, ['width' => 90 ])  ;?>
+                        <?
+                        if($category->photo != null){
+                            echo Html::img('@web/images/' . $category->photo, ['width' => 90 ]);
+                        }
+
+                        else {
+                            echo Html::img('@web/images/not_found.jpg', ['width' => 90 ]);
+                        }
+
+                        ?>
                     </div>
 
                     <div class="category-name">

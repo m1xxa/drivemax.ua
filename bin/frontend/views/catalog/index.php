@@ -18,11 +18,19 @@ use yii\helpers\Url;
     <div class="col-lg-3">
 
         <div class="category-image">
-            <?=Html::img('@web/images/' . $category->photo, ['width' => 90 ])  ;?>
+            <?
+             if(file_exists('@web/images/' . $category->photo)){
+                 echo Html::img('@web/images/' . $category->photo, ['width' => 90 ]);
+             }
+             else {
+                 echo Html::img('@web/images/1.jpg', ['width' => 90 ]);
+             }
+
+            ?>
         </div>
 
         <div class="category-name">
-            <?=Html::a($category->name, Url::to($category->alias))  ;?>
+            <?=Html::a($category->name, Url::to($category->alias)) ;?>
         </div>
 
 
