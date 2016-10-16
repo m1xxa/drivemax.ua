@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 ?>
@@ -18,7 +19,7 @@ $this->title = 'My Yii Application';
                     </div>
 
                     <div class="category-name">
-                        <?=Html::a($category->name, 'category/' . $category->alias)  ;?>
+                        <?=Html::a($category->name, Url::to('catalog/' . $category->alias))  ;?>
                     </div>
 
 
