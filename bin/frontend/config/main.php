@@ -42,6 +42,7 @@ return [
             'showScriptName' => false,
             'rules' => [
 
+                'catalog' => 'site/index',
                 'catalog/<category:[\w-]+>' => 'catalog/view/',
             ],
         ],

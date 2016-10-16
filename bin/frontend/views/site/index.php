@@ -17,11 +17,13 @@ $this->title = 'My Yii Application';
                     <div class="category-image">
                         <?
                         if($category->photo != null){
-                            echo Html::img('@web/images/' . $category->photo, ['width' => 90 ]);
+                            echo Html::a(Html::img('@web/images/' . $category->photo, ['width' => 90 ]),
+                                Url::to('catalog/' . $category->alias));
                         }
 
                         else {
-                            echo Html::img('@web/images/not_found.jpg', ['width' => 90 ]);
+                            echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 90 ]),
+                                Url::to('catalog/' . $category->alias));
                         }
 
                         ?>

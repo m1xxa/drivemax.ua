@@ -19,12 +19,15 @@ use yii\helpers\Url;
 
         <div class="category-image">
             <?
-             if(file_exists('@web/images/' . $category->photo)){
-                 echo Html::img('@web/images/' . $category->photo, ['width' => 90 ]);
-             }
-             else {
-                 echo Html::img('@web/images/1.jpg', ['width' => 90 ]);
-             }
+            if($category->photo != null){
+                echo Html::a(Html::img('@web/images/' . $category->photo, ['width' => 90 ]),
+                    Url::to('catalog/' . $category->alias));
+            }
+
+            else {
+                echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 90 ]),
+                    Url::to($category->alias));
+            }
 
             ?>
         </div>
