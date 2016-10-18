@@ -6,37 +6,62 @@ use yii\helpers\Url;
 ?>
 <h1>catalog/index</h1>
 
-<?=$categoryid->name;?>
+<h3> This is are: <?=$categoryid->name;?> category.</h3>
 
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
+<div class="container">
+    <div class="row">
+        <?foreach($model as $category):?>
+            <div class="col-lg-3">
 
-</p>
+                <div class="category-image">
+                    <?
+                    if($category->photo != null){
+                        echo Html::a(Html::img('@web/images/' . $category->photo, ['width' => 90 ]),
+                            Url::to('catalog/' . $category->alias));
+                    }
 
-<?foreach($model as $category):?>
-    <div class="col-lg-3">
+                    else {
+                        echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 90 ]),
+                            Url::to($category->alias));
+                    }
 
-        <div class="category-image">
-            <?
-            if($category->photo != null){
-                echo Html::a(Html::img('@web/images/' . $category->photo, ['width' => 90 ]),
-                    Url::to('catalog/' . $category->alias));
-            }
+                    ?>
+                </div>
 
-            else {
-                echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 90 ]),
-                    Url::to($category->alias));
-            }
-
-            ?>
-        </div>
-
-        <div class="category-name">
-            <?=Html::a($category->name, Url::to($category->alias)) ;?>
-        </div>
+                <div class="category-name">
+                    <?=Html::a($category->name, Url::to($category->alias)) ;?>
+                </div>
 
 
 
+            </div>
+        <?endforeach;?>
     </div>
-<?endforeach;?>
+</div>
+
+
+<div class="products"><h3> This is products of: <?=$categoryid->name;?> category:</h3></div>
+
+<div class="container">
+    <div class="row">
+        <?foreach($products as $product):?>
+            <div class="col-lg-3">
+                <div class="product-image">
+                    <?
+                    if($product->photo != null){
+                        echo Html::a(Html::img('@web/images/' . $product->photo->photo_name, ['width' => 90 ]),
+                            Url::to('#'));
+                    }
+                    else {
+                        echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 90 ]),
+                            Url::to('#'));
+                    }
+                    ?>
+                </div>
+                <div class="product-name">
+                    <?=Html::a($product->product_name, Url::to('#')) ;?>
+                </div>
+            </div>
+        <?endforeach;?>
+    </div>
+</div>

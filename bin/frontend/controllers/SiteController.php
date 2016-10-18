@@ -1,7 +1,7 @@
 <?php
 namespace frontend\controllers;
 
-use app\models\Category;
+use frontend\models\Category;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;

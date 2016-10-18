@@ -49,4 +49,23 @@ class Product extends \yii\db\ActiveRecord
             'product_description' => 'Product Description',
         ];
     }
+
+    public function getProductPhoto() {
+        return $this->hasMany(ProductPhoto::className(), ['product_id' => 'product_id']);
+    }
+
+    public function getPhoto() {
+        return $this->hasOne(Photos::className(), ['photo_id' => 'photo_id'])->via('productPhoto');
+    }
+
+    public function getProductCategory() {
+        return $this->hasMany(ProductCategory::className(), ['product_id' => 'product_id']);
+    }
+
+    public function getCategory() {
+        return $this->hasOne(Category::className(), ['category_id' => 'category_id'])->via('productCategory');
+    }
+
+
+
 }
