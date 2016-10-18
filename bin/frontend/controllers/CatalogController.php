@@ -4,9 +4,10 @@ namespace frontend\controllers;
 
 use frontend\models\Category;
 use frontend\models\Product;
+use yii\web\Controller;
 
 
-class CatalogController extends \yii\web\Controller
+class CatalogController extends Controller
 {
     public function actionIndex()
     {

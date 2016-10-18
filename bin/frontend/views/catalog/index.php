@@ -59,7 +59,7 @@ use yii\helpers\Url;
                     ?>
                 </div>
                 <div class="product-name">
-                    <?=Html::a($product->product_name, Url::to('#')) ;?>
+                    <?=Html::a($product->product_name, Url::to('@web/product/' . $product->product_id)) ;?>
                 </div>
             </div>
         <?endforeach;?>
