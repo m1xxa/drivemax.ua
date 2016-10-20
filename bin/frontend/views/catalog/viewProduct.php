@@ -6,6 +6,12 @@ use yii\helpers\Url;
 ?>
     <h1>catalog/viewProduct</h1>
 
-<?=$category?>
-<?=$subcategory?>
-<?=$product?>
+<?=$category->name?>
+<?=$subcategory->name?>
+<?=$product->name?>
+
+<?foreach ($model as $item):?>
+
+    <div class=""><?=$item->product_name;?></div>
+
+<?endforeach;?>

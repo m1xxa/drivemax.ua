@@ -33,8 +33,12 @@ class CatalogController extends Controller
     }
 
     public function actionViewProduct($category, $subcategory, $product){
-        return $this->render('viewProduct', ['category' => $category, 'subcategory' => $subcategory,
-            'product' => $product]);
+        $currentCategory = Category::find()->where(['alias' => $category])->one();
+        $currentSubcategory = Category::find()->where(['alias' => $subcategory])->one();
+        $currentProduct = Category::find()->where(['alias' => $product])->one();
+        $model = Product::find()->where(['product_id' => 7])->all();
+        return $this->render('viewProduct', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
+            'product' => $currentProduct, 'model' => $model]);
     }
 
 

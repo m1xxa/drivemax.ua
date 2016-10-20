@@ -24,7 +24,7 @@ use yii\helpers\Url;
 
             <div class="col-lg-6">
                 <div class="product-row-name">
-                    <?=Html::a($item->name, Url::to($subcategory->alias . '/' . $item->name))?>
+                    <?=Html::a($item->name, Url::to($subcategory->alias . '/' . $item->alias))?>
                 </div>
             </div>
 
