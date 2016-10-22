@@ -29,10 +29,11 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'product_name'], 'required'],
-            [['product_id'], 'integer'],
+            [['product_id', 'product_name', 'alias', 'active', 'warehouse', 'price_id', 'qty'], 'required'],
+            [['product_id', 'active', 'warehouse', 'price_id', 'qty'], 'integer'],
             [['product_number', 'product_description'], 'string', 'max' => 255],
             [['product_name'], 'string', 'max' => 90],
+            [['alias'], 'string'],
         ];
     }
 
@@ -43,10 +44,16 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'product_id' => 'Product ID',
-            'product_number' => 'Product Number',
-            'product_name' => 'Product Name',
-            'product_description' => 'Product Description',
+            'product_id' => 'ID товара',
+            'product_number' => 'Номер товара',
+            'product_name' => 'Наименование',
+            'product_description' => 'Описание',
+            'alias' => 'Алиас',
+            'active' => 'Доступность',
+            'warehouse' => 'Склад',
+            'price_id' => 'Цена',
+            'qty' => 'Количество',
+
         ];
     }
 
@@ -64,6 +71,10 @@ class Product extends \yii\db\ActiveRecord
 
     public function getCategory() {
         return $this->hasOne(Category::className(), ['category_id' => 'category_id'])->via('productCategory');
+    }
+
+    public function getWarehouse() {
+        return $this->hasOne(Warehouse::className(), ['warehouse_id' => 'warehouse']);
     }
 
 
