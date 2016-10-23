@@ -73,8 +73,12 @@ class Product extends \yii\db\ActiveRecord
         return $this->hasOne(Category::className(), ['category_id' => 'category_id'])->via('productCategory');
     }
 
-    public function getWarehouse() {
+    public function getProductWarehouse() {
         return $this->hasOne(Warehouse::className(), ['warehouse_id' => 'warehouse']);
+    }
+
+    public function getProductPrice() {
+        return $this->hasOne(Price::className(), ['price_id' => 'price_id']);
     }
 
 

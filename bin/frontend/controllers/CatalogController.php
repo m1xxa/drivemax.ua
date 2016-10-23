@@ -36,7 +36,7 @@ class CatalogController extends Controller
         $currentCategory = Category::find()->where(['alias' => $category])->one();
         $currentSubcategory = Category::find()->where(['alias' => $subcategory])->one();
         $currentProduct = Category::find()->where(['alias' => $product])->one();
-        $model = Product::find()->joinWith(['category', 'photo'])->
+        $model = Product::find()->joinWith(['category', 'photo', 'productWarehouse'])->
             where(['category.category_id' => $currentProduct->category_id])->all();
         return $this->render('viewProduct', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
             'product' => $currentProduct, 'model' => $model]);

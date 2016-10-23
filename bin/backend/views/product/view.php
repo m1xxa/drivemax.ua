@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -34,10 +35,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_name',
             'product_description',
             'alias',
-            'active',
-            'warehouse',
-            'price_id',
+            'active:boolean',
+            [
+                'attribute' => 'warehouse',
+                'value' => ArrayHelper::getValue($model, 'productWarehouse.warehouse_name'),
+            ],
+            [
+                'attribute' => 'price_id',
+                'value' => ArrayHelper::getValue($model, 'productPrice.price_value'),
+            ],
             'qty',
+            [
+                'label' => 'Категория',
+                'attribute' => 'category_id',
+                'value' => ArrayHelper::getValue($model, 'category.name'),
+
+            ],
         ],
     ]) ?>
 

@@ -1,5 +1,7 @@
 <?php
 
+use frontend\models\Category;
+use frontend\models\Warehouse;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -22,13 +24,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'active')->checkbox([1, 0]) ?>
 
-    <?= $form->field($model, 'warehouse')->textInput() ?>
+    <?= $form->field($model, 'warehouse')->dropDownList(Warehouse::find()->
+                                select(['warehouse_name', 'warehouse_id'])->indexBy('warehouse_id')->column()) ?>
 
     <?= $form->field($model, 'price_id')->textInput() ?>
 
     <?= $form->field($model, 'qty')->textInput() ?>
+
+
 
 
     <div class="form-group">

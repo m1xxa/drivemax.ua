@@ -19,7 +19,7 @@
         <div class="col-lg-1"><?=$item->photo->photo_name;?></div>
         <div class="col-lg-4"><?=$item->product_name;?></div>
         <div class="col-lg-2"><?=$item->qty;?></div>
-        <div class="col-lg-1"><?=$item->warehouse;?></div>
+        <div class="col-lg-1"><?=$item->productWarehouse->warehouse_name;?></div>
         <div class="col-lg-1"><?=$item->price_id;?> грн</div>
         
     </div>

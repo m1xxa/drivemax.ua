@@ -15,10 +15,14 @@ class ProductSearch extends Product
     /**
      * @inheritdoc
      */
+
+    public $category_id;
+
+
     public function rules()
     {
         return [
-            [['id', 'product_id', 'active', 'warehouse', 'price_id', 'qty'], 'integer'],
+            [['id', 'product_id', 'active', 'warehouse', 'price_id', 'qty', 'category_id'], 'integer'],
             [['product_number', 'product_name', 'product_description', 'alias'], 'safe'],
         ];
     }
@@ -41,7 +45,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = Product::find()->with(['productWarehouse'])->joinWith(['category']);
 
         // add conditions that should always apply here
 
@@ -62,9 +66,9 @@ class ProductSearch extends Product
             'id' => $this->id,
             'product_id' => $this->product_id,
             'active' => $this->active,
-            'warehouse' => $this->warehouse,
             'price_id' => $this->price_id,
             'qty' => $this->qty,
+
         ]);
 
         $query
@@ -72,6 +76,11 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'product_name', $this->product_name])
             ->andFilterWhere(['like', 'product_description', $this->product_description])
             ->andFilterWhere(['like', 'alias', $this->alias]);
+
+        $dataProvider->sort->attributes['category_id'] = [
+            'asc' => ['name' => SORT_ASC],
+            'desc' => ['name' => SORT_DESC],
+        ];
 
 
         return $dataProvider;
