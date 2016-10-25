@@ -40,10 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'warehouse',
                 'value' => ArrayHelper::getValue($model, 'productWarehouse.warehouse_name'),
             ],
-            [
-                'attribute' => 'price_id',
-                'value' => ArrayHelper::getValue($model, 'productPrice.price_value'),
-            ],
             'qty',
             [
                 'label' => 'Категория',

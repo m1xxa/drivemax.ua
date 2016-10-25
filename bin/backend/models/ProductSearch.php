@@ -19,11 +19,13 @@ class ProductSearch extends Product
     public $category_id;
 
 
+
     public function rules()
     {
         return [
-            [['id', 'product_id', 'active', 'warehouse', 'price_id', 'qty', 'category_id'], 'integer'],
-            [['product_number', 'product_name', 'product_description', 'alias'], 'safe'],
+            [['id', 'product_id', 'active', 'warehouse', 'qty', 'price_currency'], 'integer'],
+            [['product_number', 'product_name', 'product_description', 'alias', 'category_id'], 'safe'],
+            [['price_value',], 'double'],
         ];
     }
 
@@ -66,8 +68,10 @@ class ProductSearch extends Product
             'id' => $this->id,
             'product_id' => $this->product_id,
             'active' => $this->active,
-            'price_id' => $this->price_id,
             'qty' => $this->qty,
+            'price_currency' => $this->currency->currency_id,
+            'category_id' => $this->category->category_id,
+            'warehouse' => $this->productWarehouse->warehouse_id,
 
         ]);
 
@@ -75,7 +79,8 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'product_number', $this->product_number])
             ->andFilterWhere(['like', 'product_name', $this->product_name])
             ->andFilterWhere(['like', 'product_description', $this->product_description])
-            ->andFilterWhere(['like', 'alias', $this->alias]);
+            ->andFilterWhere(['like', 'alias', $this->alias])
+            ->andFilterWhere(['like', 'price_value', $this->price_value]);
 
         $dataProvider->sort->attributes['category_id'] = [
             'asc' => ['name' => SORT_ASC],

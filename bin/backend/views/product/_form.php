@@ -1,6 +1,7 @@
 <?php
 
 use frontend\models\Category;
+use frontend\models\Currency;
 use frontend\models\Warehouse;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -22,19 +23,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'category')->dropDownList(Category::find()->
+    select(['name', 'category_id'])->indexBy('category_id')->column()) ?>
 
     <?= $form->field($model, 'active')->checkbox([1, 0]) ?>
 
-    <?= $form->field($model, 'warehouse')->dropDownList(Warehouse::find()->
-                                select(['warehouse_name', 'warehouse_id'])->indexBy('warehouse_id')->column()) ?>
+    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'price_id')->textInput() ?>
+    <?= $form->field($model, 'price_value')->textInput() ?>
+
+    <?= $form->field($model, 'price_currency')->dropDownList(Currency::find()->
+    select(['currency_name', 'currency_id'])->indexBy('currency_id')->column()) ?>
 
     <?= $form->field($model, 'qty')->textInput() ?>
 
-
-
+    <?= $form->field($model, 'warehouse')->dropDownList(Warehouse::find()->
+    select(['warehouse_name', 'warehouse_id'])->indexBy('warehouse_id')->column()) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -1,6 +1,7 @@
 <?php
 
 use frontend\models\Category;
+use frontend\models\Currency;
 use frontend\models\Price;
 use frontend\models\Product;
 use frontend\models\Warehouse;
@@ -33,9 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_number',
             'product_name',
             'active:boolean',
+            'price_value',
             [
-                'attribute' => 'price_id',
-                'value' => 'productPrice.price_value',
+                'attribute' => 'price_currency',
+                'filter' => Currency::find()->select(['currency_caption', 'currency_id'])
+                    ->indexBy('currency_id')->column(),
+                'value' => 'currency.currency_caption',
             ],
             'qty',
             [
@@ -47,7 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Категория',
                 'attribute' => 'category_id',
-                'filter' => Category::find()->select(['name', 'category_id'])->indexBy('category_id')->column(),
+                'filter' => Category::find()->select(['name', 'category_id'])
+                    ->indexBy('category_id')->column(),
                 'value' => function (Product $product){
                     return ArrayHelper::getValue($product, 'category.name');
                 }

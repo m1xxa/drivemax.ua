@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "product".
@@ -12,9 +13,12 @@ use Yii;
  * @property string $product_number
  * @property string $product_name
  * @property string $product_description
+ * @property string $price_value
+ *
  */
-class Product extends \yii\db\ActiveRecord
+class Product extends ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -29,8 +33,8 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'product_name', 'alias', 'active', 'warehouse', 'price_id', 'qty'], 'required'],
-            [['product_id', 'active', 'warehouse', 'price_id', 'qty'], 'integer'],
+            [['product_id', 'product_name', 'alias', 'active', 'warehouse', 'qty', 'price_value', 'price_currency'], 'required'],
+            [['product_id', 'active', 'warehouse', 'qty', 'price_value', 'price_currency'], 'integer'],
             [['product_number', 'product_description'], 'string', 'max' => 255],
             [['product_name'], 'string', 'max' => 90],
             [['alias'], 'string'],
@@ -77,10 +81,9 @@ class Product extends \yii\db\ActiveRecord
         return $this->hasOne(Warehouse::className(), ['warehouse_id' => 'warehouse']);
     }
 
-    public function getProductPrice() {
-        return $this->hasOne(Price::className(), ['price_id' => 'price_id']);
+    public function getCurrency() {
+        return $this->hasOne(Currency::className(), ['currency_id' => 'price_currency']);
     }
-
 
 
 }
