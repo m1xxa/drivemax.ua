@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use frontend\models\ProductCategory;
 use Yii;
 use frontend\models\Product;
 use backend\models\ProductSearch;
@@ -83,15 +84,29 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $category_model = ProductCategory::find()->where(['category_id' => $model->category->category_id])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            $category_model->load(Yii::$app->request->post());
+            $category_model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
-    }
+
+        elseif ($category_model->load(Yii::$app->request->post()) && $category_model->save())
+        {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        else {
+                return $this->render('update', [
+                    'model' => $model,
+                    'category_model' => $category_model,
+                ]);
+            }
+        }
 
     /**
      * Deletes an existing Product model.
@@ -121,4 +136,5 @@ class ProductController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

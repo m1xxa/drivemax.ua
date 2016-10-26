@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
 
 <div class="product-form">
 
+    model: <?=$model->category->category_id?>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'product_id')->textInput() ?>
@@ -23,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category')->dropDownList(Category::find()->
+    <?= $form->field($category_model, 'category_id')->dropDownList(Category::find()->
     select(['name', 'category_id'])->indexBy('category_id')->column()) ?>
 
     <?= $form->field($model, 'active')->checkbox([1, 0]) ?>
