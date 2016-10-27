@@ -13,8 +13,6 @@ use yii\widgets\ActiveForm;
 
 <div class="product-form">
 
-    model: <?=$model->category->category_id?>
-
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'product_id')->textInput() ?>
@@ -25,8 +23,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($category_model, 'category_id')->dropDownList(Category::find()->
-    select(['name', 'category_id'])->indexBy('category_id')->column()) ?>
+    <?=$form->field($category_model, 'category_id')->dropDownList(Category::find()->
+    select(['name', 'category_id'])->indexBy('category_id')->column())?>
 
     <?= $form->field($model, 'active')->checkbox([1, 0]) ?>
 
@@ -41,6 +39,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'warehouse')->dropDownList(Warehouse::find()->
     select(['warehouse_name', 'warehouse_id'])->indexBy('warehouse_id')->column()) ?>
+
+    <?= $form->field($photo_model, 'photo_id')->textInput() ?>
+
+    <?//=$form->field($category_model, 'product_id')->textInput()?>
+
+    <?$category_model->product_id = $model->product_id?>
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

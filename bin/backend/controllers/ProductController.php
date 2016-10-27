@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use frontend\models\ProductCategory;
+use frontend\models\ProductPhoto;
 use Yii;
 use frontend\models\Product;
 use backend\models\ProductSearch;
@@ -65,12 +66,21 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
+        $category_model = new ProductCategory();
+        $photo_model = new ProductPhoto();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() &&
+            $category_model->load(Yii::$app->request->post()) && $category_model->save() &&
+            $photo_model->load(Yii::$app->request->post()) && $photo_model->save())
+        {
+            $category_model->product_id = $model->product_id;
+            $category_model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'category_model' => $category_model,
+                'photo_model' => $photo_model,
             ]);
         }
     }
@@ -85,13 +95,14 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
         $category_model = ProductCategory::find()->where(['category_id' => $model->category->category_id])->one();
+        $photo_model = ProductPhoto::find()->where(['photo_id' => $model->photo->photo_id])->one();
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+
+        if ($model->load(Yii::$app->request->post()) && $model->save() &&
+            $photo_model->load(Yii::$app->request->post()) && $photo_model->save() &&
+            $category_model->load(Yii::$app->request->post()) && $category_model->save())
         {
-            $category_model->load(Yii::$app->request->post());
-            $category_model->save();
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -104,6 +115,7 @@ class ProductController extends Controller
                 return $this->render('update', [
                     'model' => $model,
                     'category_model' => $category_model,
+                    'photo_model' => $photo_model,
                 ]);
             }
         }

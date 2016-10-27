@@ -3,6 +3,7 @@
 use frontend\models\Category;
 use frontend\models\Currency;
 use frontend\models\Price;
+use frontend\models\Photos;
 use frontend\models\Product;
 use frontend\models\Warehouse;
 use yii\helpers\ArrayHelper;
@@ -55,6 +56,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ->indexBy('category_id')->column(),
                 'value' => function (Product $product){
                     return ArrayHelper::getValue($product, 'category.name');
+                }
+            ],
+
+            [
+                'label' => 'Фото',
+                'attribute' => 'photo_id',
+                'value' => function (Product $product){
+                    return ArrayHelper::getValue($product, 'photo.photo_name');
                 }
             ],
 

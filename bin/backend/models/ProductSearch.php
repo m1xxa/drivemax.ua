@@ -17,14 +17,15 @@ class ProductSearch extends Product
      */
 
     public $category_id;
+    public $photo_id;
 
 
 
     public function rules()
     {
         return [
-            [['id', 'product_id', 'active', 'warehouse', 'qty', 'price_currency'], 'integer'],
-            [['product_number', 'product_name', 'product_description', 'alias', 'category_id'], 'safe'],
+            [['id', 'product_id', 'active', 'warehouse', 'qty', 'price_currency', 'category_id', 'photo_id'], 'integer'],
+            [['product_number', 'product_name', 'product_description', 'alias'], 'safe'],
             [['price_value',], 'double'],
         ];
     }
@@ -47,7 +48,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->with(['productWarehouse'])->joinWith(['category']);
+        $query = Product::find()->with(['productWarehouse'])->joinWith(['category', 'photo']);
 
         // add conditions that should always apply here
 
@@ -80,11 +81,17 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'product_name', $this->product_name])
             ->andFilterWhere(['like', 'product_description', $this->product_description])
             ->andFilterWhere(['like', 'alias', $this->alias])
+            ->andFilterWhere(['like', 'photo_id', $this->photo->photo_name])
             ->andFilterWhere(['like', 'price_value', $this->price_value]);
 
         $dataProvider->sort->attributes['category_id'] = [
             'asc' => ['name' => SORT_ASC],
             'desc' => ['name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['photo_id'] = [
+            'asc' => ['photo_name' => SORT_ASC],
+            'desc' => ['photo_name' => SORT_DESC],
         ];
 
 
