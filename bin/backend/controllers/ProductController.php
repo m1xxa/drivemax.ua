@@ -69,12 +69,14 @@ class ProductController extends Controller
         $category_model = new ProductCategory();
         $photo_model = new ProductPhoto();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save() &&
-            $category_model->load(Yii::$app->request->post()) && $category_model->save() &&
-            $photo_model->load(Yii::$app->request->post()) && $photo_model->save())
+        if ($model->load(Yii::$app->request->post()) && $category_model->load(Yii::$app->request->post()) &&
+            $photo_model->load(Yii::$app->request->post()))
         {
             $category_model->product_id = $model->product_id;
+            $photo_model->product_id = $model->product_id;
+            $model->save();
             $category_model->save();
+            $photo_model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

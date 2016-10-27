@@ -42,10 +42,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($photo_model, 'photo_id')->textInput() ?>
 
-    <?//=$form->field($category_model, 'product_id')->textInput()?>
-
-    <?$category_model->product_id = $model->product_id?>
-
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
