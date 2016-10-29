@@ -48,7 +48,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->with(['productWarehouse'])->joinWith(['category', 'photo']);
+        $query = Product::find()->with(['category', 'photo', 'productWarehouse']);
 
         // add conditions that should always apply here
 

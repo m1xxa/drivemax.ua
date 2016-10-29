@@ -68,15 +68,20 @@ class ProductController extends Controller
         $model = new Product();
         $category_model = new ProductCategory();
         $photo_model = new ProductPhoto();
+        $model->product_id = 0;
+
 
         if ($model->load(Yii::$app->request->post()) && $category_model->load(Yii::$app->request->post()) &&
             $photo_model->load(Yii::$app->request->post()))
         {
+            $max_id = Product::find()->select('product_id')->max('product_id');
+            $model->product_id = $max_id + 1;
             $category_model->product_id = $model->product_id;
             $photo_model->product_id = $model->product_id;
             $model->save();
             $category_model->save();
             $photo_model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

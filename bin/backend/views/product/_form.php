@@ -2,6 +2,7 @@
 
 use frontend\models\Category;
 use frontend\models\Currency;
+use frontend\models\Product;
 use frontend\models\Warehouse;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -13,9 +14,8 @@ use yii\widgets\ActiveForm;
 
 <div class="product-form">
 
-    <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'product_id')->textInput() ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'product_number')->textInput(['maxlength' => true]) ?>
 
