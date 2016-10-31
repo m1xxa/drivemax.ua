@@ -2,11 +2,18 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 ?>
-<h1>catalog/viewSubcategory</h1>
+<?echo Breadcrumbs::widget([
+    'homeLink' => ['label' => 'Главная'],
+    'itemTemplate' => "<li>{link}</li>\n",
+    'links' => [
+        ['label' => $category->name, 'url' => ['catalog/' . $category->alias]],
+        ['label' => $subcategory->name],
+    ],
+]);?>
 
-<div class=""><?=$category->alias?> /  <?=$subcategory->alias?></div>
 
 
 <div class="container">
@@ -31,7 +38,8 @@ use yii\helpers\Url;
             <div class="col-lg-2">
                 <div class="product-row-button">
                     <?
-                    echo Html::button('Посмотреть');
+                    echo Html::a("Узнать наличие и цену", Url::to($subcategory->alias . '/' . $item->alias),
+                        ['class' => 'btn btn-success']);
                     ?>
                 </div>
 

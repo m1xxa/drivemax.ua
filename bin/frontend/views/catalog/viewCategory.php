@@ -2,11 +2,18 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 ?>
-<h1>catalog/viewCategory</h1>
 
-<div class=""><?=$category->name?></div>
+<?echo Breadcrumbs::widget([
+    'homeLink' => ['label' => 'Главная'],
+    'itemTemplate' => "<li>{link}</li>\n",
+    'links' => [
+        ['label' => $category->name],
+    ],
+]);?>
+
 
 <div class="container">
     <div class="row">
