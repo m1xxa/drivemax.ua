@@ -18,12 +18,6 @@ use yii\widgets\Breadcrumbs;
     ],
 ]);?>
 
-
-<?=$category->name?>
-<?=$subcategory->name?>
-<?=$product->name?>
-
-
 <div class="container">
         <div class="row">
             <div class="col-lg-1">Фото</div>
@@ -42,7 +36,6 @@ use yii\widgets\Breadcrumbs;
         <div class="col-lg-2">
             <div class="name"><?=$item->product_name;?></div>
             <div class="info"><?=Html::a('Подробнее', Url::to(''), ['class' => 'btn btn-info'])?></div>
-
         </div>
         <div class="col-lg-2"><?=$item->product_number;?></div>
         <div class="col-lg-1"><?=$item->qty;?></div>

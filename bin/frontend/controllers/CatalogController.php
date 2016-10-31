@@ -42,6 +42,10 @@ class CatalogController extends Controller
             'product' => $currentProduct, 'model' => $model]);
     }
 
+    public function actionViewCart() {
+        return $this->render('viewCart');
+    }
+
 
 
 }
