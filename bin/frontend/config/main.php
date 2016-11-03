@@ -48,7 +48,10 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                'cart' => 'catalog/cart',
+                'catalog/cart-clear' => 'catalog/cart-clear',
                 'catalog' => 'site/index',
+                'catalog/addToCart/<product_id:[\d]+>' => 'catalog/add-to-cart',
                 'catalog/<category:[\w-]+>' => 'catalog/view-category',
                 'catalog/<category:[\w-]+>/<subcategory:[\w-]+>' => 'catalog/view-subcategory',
                 'catalog/<category:[\w-]+>/<subcategory:[\w-]+>/<product:[\w-]+>' => 'catalog/view-product',
