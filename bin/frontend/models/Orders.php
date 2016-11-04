@@ -56,6 +56,6 @@ class Orders extends \yii\db\ActiveRecord
     }
 
     public function getOrderProducts(){
-        return $this->hasMany(Product::className(), ['product_id' => 'product_id']);
+        return $this->hasMany(OrderProducts::className(), ['order_id' => 'id']);
     }
 }
