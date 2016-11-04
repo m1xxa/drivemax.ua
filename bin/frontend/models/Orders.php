@@ -45,13 +45,13 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'lastname' => 'Lastname',
-            'firstname' => 'Firstname',
-            'phone' => 'Phone',
-            'city' => 'City',
-            'delivery_id' => 'Delivery ID',
-            'delivery_warehouse' => 'Delivery Warehouse',
-            'status' => 'Status',
+            'lastname' => 'Фамилия',
+            'firstname' => 'Имя',
+            'phone' => 'Телефон',
+            'city' => 'Город',
+            'delivery_id' => 'Служба доставки',
+            'delivery_warehouse' => 'Номер склада',
+            'status' => 'Статус заказа',
         ];
     }
 
