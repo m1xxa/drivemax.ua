@@ -18,16 +18,10 @@ class CatalogController extends Controller
     const SESSION_KEY = 'order_id';
 
     public function actionViewCategory($category){
-
         $currentCategory = Category::find()->where(['alias' => $category])->one();
         $model = Category::find()->where(['parent_id' => $currentCategory->category_id])->all();
 
         return $this->render('viewCategory', ['category' => $currentCategory, 'model' => $model]);
-
-        //$categoryId = Category::find()->where(['alias' => $category])->one();
-        //$model = Category::find()->where(['parent_id' => $categoryId->category_id])->all();
-        //$products = Product::find()->joinWith(['category'])->where(['alias' => $categoryId->alias])->all();
-        //return $this->render('index', ['model' => $model, 'products' => $products, 'categoryid' => $categoryId]);
     }
 
     public function actionViewSubcategory($category, $subcategory){
@@ -45,19 +39,19 @@ class CatalogController extends Controller
         $currentProduct = Category::find()->where(['alias' => $product])->one();
         $model = Product::find()->joinWith(['category', 'photo', 'productWarehouse'])->
             where(['category.category_id' => $currentProduct->category_id])->all();
+
         return $this->render('viewProduct', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
             'product' => $currentProduct, 'model' => $model]);
     }
 
     public function actionCart() {
-
         $query = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)]);
         $dataProvider = new ActiveDataProvider(['query' => $query]);
-        return $this->render('viewCart', ['dataProvider' => $dataProvider]);
+
+        return $this->render('viewCart', ['dataProvider' => $dataProvider, 'query' => $query]);
     }
 
     public function actionAddToCart($product_id) {
-
         if(!Yii::$app->session->has(self::SESSION_KEY)){
             $order = new Orders();
             $order->status = 0;
@@ -76,11 +70,9 @@ class CatalogController extends Controller
         $orderProducts->warehouse_id = $product->warehouse;
         $orderProducts->count = 1;
         $orderProducts->photo = $product->photo->photo_name;
-
         $orderProducts->save();
 
         return $this->redirect('@web/cart');
-
     }
 
     public function actionCartClear(){
