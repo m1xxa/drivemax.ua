@@ -25,6 +25,8 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
+<?$cart = \frontend\models\OrderProducts::find()->where(['order_id' => Yii::$app->session->get('order_id')])->count();?>
+
 <div class="wrap">
     <?php
     NavBar::begin([
@@ -38,7 +40,7 @@ AppAsset::register($this);
         ['label' => 'Главная', 'url' => ['/site/index']],
         ['label' => 'Доставка и оплата', 'url' => ['/site/about']],
         ['label' => 'Контакты', 'url' => ['/site/contact']],
-        ['label' => 'Корзина', 'url' => ['catalog/cart']],
+        ['label' => 'Корзина (' . $cart . ')', 'url' => ['catalog/cart']],
     ];
 
     echo Nav::widget([

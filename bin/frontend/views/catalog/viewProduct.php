@@ -7,6 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $category \frontend\controllers\CatalogController*/
 /* @var $subcategory \frontend\controllers\CatalogController*/
 /* @var $product \frontend\controllers\CatalogController*/
+
 ?>
 <?echo Breadcrumbs::widget([
     'homeLink' => ['label' => 'Главная'],
@@ -40,7 +41,7 @@ use yii\widgets\Breadcrumbs;
         <div class="col-lg-2"><?=$item->product_number;?></div>
         <div class="col-lg-1"><?=$item->qty;?></div>
         <div class="col-lg-1"><?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
-        <div class="col-lg-2"><?=$item->productWarehouse->warehouse_name;?></div>
+        <div class="col-lg-2">Отправка через <?=$item->productWarehouse->warehouse_wait_days;?> дня</div>
         <div class="col-lg-1"><?=Html::a('Заказать', Url::to('@web/catalog/addToCart/' . $item->product_id), ['class' => 'btn btn-success'])?></div>
     </div>
 <?endforeach;?>

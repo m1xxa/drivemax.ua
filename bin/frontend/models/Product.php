@@ -34,7 +34,8 @@ class Product extends ActiveRecord
     {
         return [
             [['product_id', 'product_name', 'alias', 'active', 'warehouse', 'qty', 'price_value', 'price_currency'], 'required'],
-            [['product_id', 'active', 'warehouse', 'qty', 'price_value', 'price_currency'], 'integer'],
+            [['product_id', 'active', 'warehouse', 'qty', 'price_currency'], 'integer'],
+            [['price_value'], 'double'],
             [['product_number', 'product_description'], 'string', 'max' => 255],
             [['product_name'], 'string', 'max' => 90],
             [['alias'], 'string'],

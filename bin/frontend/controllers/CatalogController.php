@@ -48,7 +48,9 @@ class CatalogController extends Controller
         $query = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)]);
         $dataProvider = new ActiveDataProvider(['query' => $query]);
 
-        return $this->render('viewCart', ['dataProvider' => $dataProvider, 'query' => $query]);
+        $orderProducts = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->all();
+
+        return $this->render('viewCart', ['orderProducts' => $orderProducts]);
     }
 
     public function actionAddToCart($product_id) {
@@ -65,7 +67,7 @@ class CatalogController extends Controller
         $orderProducts->order_id = Yii::$app->session->get(self::SESSION_KEY);
         $orderProducts->product_id = $product->product_id;
         $orderProducts->product_number = $product->product_number;
-        $orderProducts->price = $product->price_value;
+        $orderProducts->price = $product->price_value * $product->currency->currency_value;
         $orderProducts->product_name = $product->product_name;
         $orderProducts->warehouse_id = $product->warehouse;
         $orderProducts->count = 1;
@@ -82,4 +84,31 @@ class CatalogController extends Controller
         return $this->redirect('@web/cart');
 
     }
+
+    public function actionDeleteFromCart ($id){
+        $orderProducts = OrderProducts::find()
+                        ->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY), 'product_id' => $id])->one();
+        $orderProducts->delete();
+
+        return $this->redirect('@web/cart');
+
+    }
+
+    public function actionOrder() {
+        $model = Orders::find()->where(['id' => Yii::$app->session->get(self::SESSION_KEY)])->one();
+        $products = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->all();
+
+        if($model->load(Yii::$app->request->post())){
+            $model->status = 1;
+            $model->save();
+            Yii::$app->session->remove(self::SESSION_KEY);
+
+            return $this->render('viewSuccess', ['model' => $model, 'products' => $products]);
+        }
+
+        return $this->render('viewOrder', ['model' => $model]);
+    }
+
+
+
 }

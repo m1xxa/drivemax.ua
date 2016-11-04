@@ -42,4 +42,13 @@ class OrderProducts extends \yii\db\ActiveRecord
             'product_id' => 'Product ID',
         ];
     }
+
+    public function getProduct() {
+        return $this->hasOne(Product::className(), ['product_id' => 'product_id']);
+
+    }
+
+    public function getWarehouse() {
+        return $this->hasOne(Warehouse::className(), ['warehouse_id' => 'warehouse_id']);
+    }
 }
