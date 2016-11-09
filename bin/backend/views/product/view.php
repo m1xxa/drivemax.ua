@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_number',
             'product_name',
             'product_description',
+            'brand',
             'alias',
             'active:boolean',
             [

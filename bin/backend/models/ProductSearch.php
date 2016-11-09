@@ -25,7 +25,7 @@ class ProductSearch extends Product
     {
         return [
             [['id', 'product_id', 'active', 'warehouse', 'qty', 'price_currency', 'category_id', 'photo_id'], 'integer'],
-            [['product_number', 'product_name', 'product_description', 'alias'], 'safe'],
+            [['product_number', 'product_name', 'product_description', 'alias', 'brand'], 'safe'],
             [['price_value',], 'double'],
         ];
     }
@@ -73,6 +73,7 @@ class ProductSearch extends Product
             'price_currency' => $this->currency->currency_id,
             'category_id' => $this->category->category_id,
             'warehouse' => $this->productWarehouse->warehouse_id,
+            'brand' => $this->brand,
 
         ]);
 

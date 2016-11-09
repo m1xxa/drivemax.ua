@@ -23,6 +23,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_description')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'brand')->textInput(['maxlength' => true]) ?>
+
     <?=$form->field($category_model, 'category_id')->dropDownList(Category::find()->
     select(['name', 'category_id'])->indexBy('category_id')->column())?>
 

@@ -38,7 +38,7 @@ class Product extends ActiveRecord
             [['price_value'], 'double'],
             [['product_number', 'product_description'], 'string', 'max' => 255],
             [['product_name'], 'string', 'max' => 90],
-            [['alias'], 'string'],
+            [['alias', 'brand'], 'string'],
         ];
     }
 
@@ -58,6 +58,7 @@ class Product extends ActiveRecord
             'warehouse' => 'Склад',
             'price_id' => 'Цена',
             'qty' => 'Количество',
+            'brand' => 'Бренд'
 
         ];
     }
@@ -84,6 +85,11 @@ class Product extends ActiveRecord
 
     public function getCurrency() {
         return $this->hasOne(Currency::className(), ['currency_id' => 'price_currency']);
+    }
+
+    public static function findByCategoryId($categoryId, $arrayOfTables = array()) {
+        return Product::find()->joinWith($arrayOfTables)->
+           where(['category.category_id' => $categoryId])->all();
     }
 
 

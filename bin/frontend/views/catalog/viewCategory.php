@@ -23,7 +23,7 @@ use yii\widgets\Breadcrumbs;
                 <div class="category-image">
                     <?
                     if($item->photo != null){
-                        echo Html::a(Html::img('@web/images/' . $item->photo, ['width' => 90 ]),
+                        echo Html::a(Html::img('@web/images/catalog/category/' . $item->photo, ['width' => 90 ]),
                             Url::to($category->alias . '/' . $item->alias));
                     }
 

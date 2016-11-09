@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use yii\widgets\Pjax;
 
 /* @var $category \frontend\controllers\CatalogController*/
 /* @var $subcategory \frontend\controllers\CatalogController*/
@@ -21,9 +22,10 @@ use yii\widgets\Breadcrumbs;
 
 <div class="container">
         <div class="row">
-            <div class="col-lg-1">Фото</div>
+            <div class="col-lg-2">Фото</div>
             <div class="col-lg-2">Наименование</div>
             <div class="col-lg-2">Код запчасти</div>
+            <div class="col-lg-1">Бренд</div>
             <div class="col-lg-1">Колличество</div>
             <div class="col-lg-1">Цена</div>
             <div class="col-lg-2">Склад</div>
@@ -33,12 +35,13 @@ use yii\widgets\Breadcrumbs;
 <div class="container">
 <?foreach ($model as $item):?>
     <div class="row">
-        <div class="col-lg-1"><?=$item->photo->photo_name;?></div>
+        <div class="col-lg-2"><?=Html::img('@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 120]);?></div>
         <div class="col-lg-2">
             <div class="name"><?=$item->product_name;?></div>
             <div class="info"><?=Html::a('Подробнее', Url::to(''), ['class' => 'btn btn-info'])?></div>
         </div>
         <div class="col-lg-2"><?=$item->product_number;?></div>
+        <div class="col-lg-1"><?=$item->brand;?></div>
         <div class="col-lg-1"><?=$item->qty;?></div>
         <div class="col-lg-1"><?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
         <div class="col-lg-2">Отправка через <?=$item->productWarehouse->warehouse_wait_days;?> дня</div>
@@ -46,3 +49,4 @@ use yii\widgets\Breadcrumbs;
     </div>
 <?endforeach;?>
 </div>
+

@@ -16,6 +16,7 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -50,5 +51,13 @@ class Category extends \yii\db\ActiveRecord
             'photo' => 'Photo',
             'alias' => 'Alias',
         ];
+    }
+
+    public static function getCategoryByAlias($alias){
+        return Category::find()->where(['alias' => $alias])->one();
+    }
+
+    public static function getCategoryByParentId($parent_id){
+        return Category::find()->where(['parent_id' => $parent_id])->all();
     }
 }

@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
+
 ?>
 <div class="site-index">
 
@@ -17,7 +18,7 @@ $this->title = 'My Yii Application';
                     <div class="category-image">
                         <?
                         if($category->photo != null){
-                            echo Html::a(Html::img('@web/images/' . $category->photo, ['width' => 90 ]),
+                            echo Html::a(Html::img('@web/images/catalog/category/' . $category->photo, ['width' => 50 ]),
                                 Url::to('catalog/' . $category->alias));
                         }
 

@@ -15,6 +15,7 @@ use yii\helpers\Url;
         <div class="col-lg-1">Фото</div>
         <div class="col-lg-1">Номер</div>
         <div class="col-lg-3">Наименование</div>
+        <div class="col-lg-1">Бренд</div>
         <div class="col-lg-1">Цена</div>
         <div class="col-lg-1">Кол-во</div>
         <div class="col-lg-2">Отправка через</div>
@@ -26,6 +27,7 @@ use yii\helpers\Url;
         <div class="col-lg-1"><?=$orderProduct->photo;?></div>
         <div class="col-lg-1"><?=$orderProduct->product_number;?></div>
         <div class="col-lg-3"><?=$orderProduct->product_name;?></div>
+        <div class="col-lg-1"><?=$orderProduct->brand;?></div>
         <div class="col-lg-1"><?=$orderProduct->price;?> грн</div>
         <div class="col-lg-1"><?=$orderProduct->count;?> шт</div>
         <div class="col-lg-2">Отправка через: <?=$orderProduct->warehouse->warehouse_wait_days;?> дня</div>

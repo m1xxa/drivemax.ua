@@ -18,27 +18,24 @@ class CatalogController extends Controller
     const SESSION_KEY = 'order_id';
 
     public function actionViewCategory($category){
-        $currentCategory = Category::find()->where(['alias' => $category])->one();
-        $model = Category::find()->where(['parent_id' => $currentCategory->category_id])->all();
-
+        $currentCategory = Category::getCategoryByAlias($category);
+        $model = Category::getCategoryByParentId($currentCategory->category_id);
         return $this->render('viewCategory', ['category' => $currentCategory, 'model' => $model]);
     }
 
     public function actionViewSubcategory($category, $subcategory){
-        $currentCategory = Category::find()->where(['alias' => $category])->one();
-        $currentSubcategory = Category::find()->where(['alias' => $subcategory])->one();
-        $model = Category::find()->where(['parent_id' => $currentSubcategory->category_id])->all();
-
+        $currentCategory = Category::getCategoryByAlias($category);
+        $currentSubcategory = Category::getCategoryByAlias($subcategory);
+        $model = Category::getCategoryByParentId($currentSubcategory->category_id);
         return $this->render('viewSubcategory', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
             'model' => $model]);
     }
 
     public function actionViewProduct($category, $subcategory, $product){
-        $currentCategory = Category::find()->where(['alias' => $category])->one();
-        $currentSubcategory = Category::find()->where(['alias' => $subcategory])->one();
-        $currentProduct = Category::find()->where(['alias' => $product])->one();
-        $model = Product::find()->joinWith(['category', 'photo', 'productWarehouse'])->
-            where(['category.category_id' => $currentProduct->category_id])->all();
+        $currentCategory = Category::getCategoryByAlias($category);
+        $currentSubcategory = Category::getCategoryByAlias($subcategory);
+        $currentProduct = Category::getCategoryByAlias($product);
+        $model = Product::findByCategoryId($currentProduct->category_id, ['category', 'photo', 'productWarehouse']);
 
         return $this->render('viewProduct', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
             'product' => $currentProduct, 'model' => $model]);
@@ -69,6 +66,7 @@ class CatalogController extends Controller
         $orderProducts->product_number = $product->product_number;
         $orderProducts->price = $product->price_value * $product->currency->currency_value;
         $orderProducts->product_name = $product->product_name;
+        $orderProducts->brand = $product->brand;
         $orderProducts->warehouse_id = $product->warehouse;
         $orderProducts->count = 1;
         $orderProducts->photo = $product->photo->photo_name;
@@ -107,6 +105,12 @@ class CatalogController extends Controller
         }
 
         return $this->render('viewOrder', ['model' => $model]);
+    }
+
+    public function actionAddPosition() {
+
+        return $this->render('viewTemp', ['$time' => date('H:i:s')]);
+
     }
 
 
