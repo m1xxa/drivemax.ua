@@ -37,21 +37,17 @@ return [
             'errorAction' => 'site/error',
         ],
 
-        //http://drivemax.ua/
-        //http://drivemax.ua/catalog/
-        //http://drivemax.ua/catalog/audi/
-        //http://drivemax.ua/catalog/audi/100_82_90/
-        //http://drivemax.ua/catalog/audi/100_82_90/bamper_peredniy/
 
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'site/index',
+                '' => 'catalog/index',
                 'catalog' => 'site/index',
                 'cart' => 'catalog/cart',
                 'order' => 'catalog/order',
                 'catalog/cart-clear' => 'catalog/cart-clear',
+                'catalog/filter/<letter:[\w]+>' => 'catalog/filter',
                 'catalog/create-order' => 'catalog/create-order',
                 'catalog/delete/<id:[\d]+>' => 'catalog/delete-from-cart',
                 'catalog/addToCart/<product_id:[\d]+>' => 'catalog/add-to-cart',

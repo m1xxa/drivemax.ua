@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'My Yii Application';
+$this->title = 'Автомагазин ДрайвМакс - запчасти для иномарок';
 
 ?>
 <div class="site-index">

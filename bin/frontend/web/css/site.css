@@ -109,3 +109,28 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
+.alphabet-caption {
+    text-align: center;
+    font-size: 13px;
+    color: #a0a0a0;
+    padding: 7px;
+}
+
+.alphabet-buttons {
+    text-align: center;
+
+}
+
+.btn-default {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.catalog-caption {
+    text-align: center;
+    font-size: 18px;
+    color: #a0a0a0;
+    padding: 18px;
+}
+

@@ -73,7 +73,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $model = Category::find()->where(['parent_id' => 0])->all();
+        $model = Category::getCategoryByParentId(0);
         return $this->render('index', ['model' => $model]);
     }
 

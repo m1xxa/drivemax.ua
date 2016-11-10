@@ -17,6 +17,11 @@ class CatalogController extends Controller
 
     const SESSION_KEY = 'order_id';
 
+    public function actionIndex(){
+        $model = Category::getCategoryByParentId(0);
+        return $this->render('viewIndex', ['model' => $model]);
+    }
+
     public function actionViewCategory($category){
         $currentCategory = Category::getCategoryByAlias($category);
         $model = Category::getCategoryByParentId($currentCategory->category_id);
@@ -111,6 +116,12 @@ class CatalogController extends Controller
 
         return $this->render('viewTemp', ['$time' => date('H:i:s')]);
 
+    }
+
+    public function actionFilter($letter){
+        $model = Category::getParentCategoryByFilter($letter);
+
+        return $this->render('viewIndex', ['model' => $model]);
     }
 
 

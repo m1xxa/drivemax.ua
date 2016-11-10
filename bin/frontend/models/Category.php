@@ -60,4 +60,8 @@ class Category extends \yii\db\ActiveRecord
     public static function getCategoryByParentId($parent_id){
         return Category::find()->where(['parent_id' => $parent_id])->all();
     }
+
+    public static function getParentCategoryByFilter($filter){
+        return Category::find()->where(['parent_id' => 0])->andFilterWhere(['like', 'name', $filter.'%', false])->all();
+    }
 }
