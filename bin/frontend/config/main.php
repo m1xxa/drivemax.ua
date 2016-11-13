@@ -43,7 +43,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'catalog/index',
-                'catalog' => 'site/index',
+                'catalog' => 'catalog/index',
                 'cart' => 'catalog/cart',
                 'order' => 'catalog/order',
                 'catalog/cart-clear' => 'catalog/cart-clear',

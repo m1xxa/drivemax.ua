@@ -19,12 +19,17 @@ class CatalogController extends Controller
 
     public function actionIndex(){
         $model = Category::getCategoryByParentId(0);
-        return $this->render('viewIndex', ['model' => $model]);
+        $alphabetCategory = $this->getAlphabetCategoryArray($model);
+
+        return $this->render('viewIndex', ['model' => $model, 'alphabetCategory' => $alphabetCategory]);
     }
 
     public function actionViewCategory($category){
         $currentCategory = Category::getCategoryByAlias($category);
         $model = Category::getCategoryByParentId($currentCategory->category_id);
+        uasort($model, function($a, $b){
+            return ($a['name'] < $b['name']) ? -1 : 1;
+        });
         return $this->render('viewCategory', ['category' => $currentCategory, 'model' => $model]);
     }
 
@@ -120,8 +125,140 @@ class CatalogController extends Controller
 
     public function actionFilter($letter){
         $model = Category::getParentCategoryByFilter($letter);
+        $alphabetCategory = $this->getAlphabetCategoryArray($model);
 
-        return $this->render('viewIndex', ['model' => $model]);
+
+        return $this->render('viewIndex', ['model' => $model, 'alphabetCategory' => $alphabetCategory]);
+    }
+
+
+    /*
+     * create massive for alphabet output
+     * ['a' => [$category1, $category2], 'b' => [$category3, $category4]]
+     */
+
+    private function getAlphabetCategoryArray ($categories) {
+
+        if($categories==null){return null;};
+
+        foreach ($categories as $category) {
+            switch($category->name[0]) {
+                case 'A':
+                    $a[] = $category;
+                    $alphabetCategoryArray['a'] = $a;
+                    break;
+                case 'B':
+                    $b[] = $category;
+                    $alphabetCategoryArray['b'] = $b;
+                    break;
+                case 'C':
+                    $c[] = $category;
+                    $alphabetCategoryArray['c'] = $c;
+                    break;
+                case 'D':
+                    $d[] = $category;
+                    $alphabetCategoryArray['d'] = $d;
+                    break;
+                case 'E':
+                    $e[] = $category;
+                    $alphabetCategoryArray['e'] = $e;
+                    break;
+                case 'F':
+                    $f[] = $category;
+                    $alphabetCategoryArray['f'] = $f;
+                    break;
+                case 'G':
+                    $g[] = $category;
+                    $alphabetCategoryArray['g'] = $g;
+                    break;
+                case 'H':
+                    $h[] = $category;
+                    $alphabetCategoryArray['h'] = $h;
+                    break;
+                case 'I':
+                    $i[] = $category;
+                    $alphabetCategoryArray['i'] = $i;
+                    break;
+                case 'J':
+                    $j[] = $category;
+                    $alphabetCategoryArray['j'] = $j;
+                    break;
+                case 'K':
+                    $k[] = $category;
+                    $alphabetCategoryArray['k'] = $k;
+                    break;
+                case 'L':
+                    $l[] = $category;
+                    $alphabetCategoryArray['l'] = $l;
+                    break;
+                case 'M':
+                    $m[] = $category;
+                    $alphabetCategoryArray['m'] = $m;
+                    break;
+                case 'N':
+                    $n[] = $category;
+                    $alphabetCategoryArray['n'] = $n;
+                    break;
+                case 'O':
+                    $o[] = $category;
+                    $alphabetCategoryArray['o'] = $o;
+                    break;
+                case 'P':
+                    $p[] = $category;
+                    $alphabetCategoryArray['p'] = $p;
+                    break;
+                case 'Q':
+                    $q[] = $category;
+                    $alphabetCategoryArray['q'] = $q;
+                    break;
+                case 'R':
+                    $r[] = $category;
+                    $alphabetCategoryArray['r'] = $r;
+                    break;
+                case 'S':
+                    $s[] = $category;
+                    $alphabetCategoryArray['s'] = $s;
+                    break;
+                case 'T':
+                    $t[] = $category;
+                    $alphabetCategoryArray['t'] = $t;
+                    break;
+                case 'U':
+                    $u[] = $category;
+                    $alphabetCategoryArray['u'] = $u;
+                    break;
+                case 'V':
+                    $v[] = $category;
+                    $alphabetCategoryArray['v'] = $v;
+                    break;
+                case 'W':
+                    $w[] = $category;
+                    $alphabetCategoryArray['w'] = $w;
+                    break;
+                case 'X':
+                    $x[] = $category;
+                    $alphabetCategoryArray['x'] = $x;
+                    break;
+                case 'Y':
+                    $y[] = $category;
+                    $alphabetCategoryArray['y'] = $y;
+                    break;
+                case 'Z':
+                    $z[] = $category;
+                    $alphabetCategoryArray['z'] = $z;
+                    break;
+                default:
+                    $default[] = $category;
+                    $alphabetCategoryArray['Другие'] = $default;
+                    break;
+            }
+        }
+
+        ksort($alphabetCategoryArray);
+        $model = array_chunk($alphabetCategoryArray, 6, true);
+
+
+        return $model;
     }
 
 

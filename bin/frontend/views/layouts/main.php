@@ -37,7 +37,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => 'Главная', 'url' => ['/catalog/index']],
         ['label' => 'Доставка и оплата', 'url' => ['/site/about']],
         ['label' => 'Контакты', 'url' => ['/site/contact']],
         ['label' => 'Корзина (' . $cart . ')', 'url' => ['catalog/cart']],

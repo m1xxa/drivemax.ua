@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 ?>
 
 <?echo Breadcrumbs::widget([
-    'homeLink' => ['label' => 'Главная'],
+    'homeLink' => ['label' => 'Главная', 'url' => Yii::$app->homeUrl],
     'itemTemplate' => "<li>{link}</li>\n",
     'links' => [
         ['label' => $category->name],
@@ -18,19 +18,18 @@ use yii\widgets\Breadcrumbs;
 <div class="container">
     <div class="row">
         <?foreach($model as $item):?>
-            <div class="col-lg-3">
+            <div class="category-block col-lg-2">
 
                 <div class="category-image">
                     <?
                     if($item->photo != null){
-                        echo Html::a(Html::img('@web/images/catalog/category/' . $item->photo, ['width' => 90 ]),
+                        echo Html::a(Html::img('@web/images/catalog/category/' . $item->photo, ['width' => 60 ]),
                             Url::to($category->alias . '/' . $item->alias));
                     }
+                    else echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 60 ]),
+                        Url::to($category->alias . '/' . $item->alias));
 
-                    else {
-                        echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 90 ]),
-                            Url::to($category->alias . '/' . $item->alias));
-                    }
+
 
                     ?>
                 </div>
@@ -45,3 +44,4 @@ use yii\widgets\Breadcrumbs;
         <?endforeach;?>
     </div>
 </div>
+

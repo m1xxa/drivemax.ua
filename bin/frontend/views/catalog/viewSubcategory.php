@@ -6,7 +6,7 @@ use yii\widgets\Breadcrumbs;
 
 ?>
 <?echo Breadcrumbs::widget([
-    'homeLink' => ['label' => 'Главная'],
+    'homeLink' => ['label' => 'Главная', 'url' => Yii::$app->homeUrl],
     'itemTemplate' => "<li>{link}</li>\n",
     'links' => [
         ['label' => $category->name, 'url' => ['catalog/' . $category->alias]],
@@ -19,17 +19,8 @@ use yii\widgets\Breadcrumbs;
 <div class="container">
     <?foreach($model as $item):?>
         <div class="row">
-            <div class="col-lg-1">
-                <div class="product-row-image">
-                    <?
-                    //переделать логику, если в товарах есть хоть одна картинка, то выводить кнопку, если нет, то не выводить
-                    echo Html::a(Html::img('@web/images/not_found.jpg', ['width' => 50]),
-                        Url::to('#'));
-                    ?>
-                </div>
-            </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="product-row-name">
                     <?=Html::a($item->name, Url::to($subcategory->alias . '/' . $item->alias))?>
                 </div>
