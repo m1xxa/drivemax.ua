@@ -2,6 +2,8 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+$this->title = 'Корзина. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
 ?>
 
 <div> Заказ номер:
@@ -9,30 +11,37 @@ use yii\helpers\Url;
     <?=Yii::$app->session->get('order_id')?>
 </div>
 
-<div class="container">
+<div class="container ">
 
-    <div class="row">
-        <div class="col-lg-1">Фото</div>
-        <div class="col-lg-1">Номер</div>
-        <div class="col-lg-3">Наименование</div>
-        <div class="col-lg-1">Бренд</div>
-        <div class="col-lg-1">Цена</div>
-        <div class="col-lg-1">Кол-во</div>
-        <div class="col-lg-2">Отправка через</div>
-        <div class="col-lg-2">Действия</div>
+    <div class="row table-label-row">
+        <div class="col-lg-1"><b>Фото</b></div>
+        <div class="col-lg-4"><b>Наименование</b></div>
+        <div class="col-lg-1"><b>Бренд</b></div>
+        <div class="col-lg-1"><b>Цена</b></div>
+        <div class="col-lg-1"><b>Кол-во</b></div>
+        <div class="col-lg-2"><b>Отправка через</b></div>
+        <div class="col-lg-2"><b>Действия</b></div>
     </div>
+
+    <div class="product-table-separate"></div>
 
     <?foreach ($orderProducts as $orderProduct):?>
-    <div class="row">
-        <div class="col-lg-1"><?=$orderProduct->photo;?></div>
-        <div class="col-lg-1"><?=$orderProduct->product_number;?></div>
-        <div class="col-lg-3"><?=$orderProduct->product_name;?></div>
-        <div class="col-lg-1"><?=$orderProduct->brand;?></div>
-        <div class="col-lg-1"><?=$orderProduct->price;?> грн</div>
-        <div class="col-lg-1"><?=$orderProduct->count;?> шт</div>
-        <div class="col-lg-2">Отправка через: <?=$orderProduct->warehouse->warehouse_wait_days;?> дня</div>
-        <div class="col-lg-2"><?=Html::a('Удалить из корзины', Url::to('@web/catalog/delete/' . $orderProduct->product_id))?></div>
-    </div>
+        <div class="container product-table">
+            <div class="row product-table-row">
+                <div class="col-lg-1"><?=Html::a(Html::img('@web/images/catalog/products/'
+                        . $orderProduct->photo, ['width' => 80]),
+                        Url::to('#myModal'), ['data-toggle' => 'modal']);?></div>
+                <div class="col-lg-4">
+                    <div class="number">Номер: <?=$orderProduct->product_number;?></div>
+                    <div class="name"><?=$orderProduct->product_name;?></div>
+                </div>
+                <div class="col-lg-1"><?=$orderProduct->brand;?></div>
+                <div class="col-lg-1"><?=$orderProduct->price;?> грн</div>
+                <div class="col-lg-1"><?=$orderProduct->count;?> шт</div>
+                <div class="col-lg-2">Отправка через: <?=$orderProduct->warehouse->warehouse_wait_days;?> дня</div>
+                <div class="col-lg-2"><?=Html::a('Удалить из корзины', Url::to('@web/catalog/delete/' . $orderProduct->product_id))?></div>
+            </div>
+        </div>
     <?endforeach?>
 </div>
 

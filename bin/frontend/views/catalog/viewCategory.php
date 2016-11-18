@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
+$this->title = 'Запчасти для '. $category->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
 ?>
 
 <?echo Breadcrumbs::widget([
@@ -13,6 +14,10 @@ use yii\widgets\Breadcrumbs;
         ['label' => $category->name],
     ],
 ]);?>
+
+<div class="catalog-caption">
+    Выберите марку своего автомобиля.
+</div>
 
 
 <div class="container">

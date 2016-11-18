@@ -9,6 +9,7 @@ use yii\widgets\Pjax;
 /* @var $subcategory \frontend\controllers\CatalogController*/
 /* @var $product \frontend\controllers\CatalogController*/
 
+$this->title = $product->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
 ?>
 <?echo Breadcrumbs::widget([
     'homeLink' => ['label' => 'Главная', 'url' => Yii::$app->homeUrl],

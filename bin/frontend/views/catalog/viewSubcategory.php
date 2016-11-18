@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
+$this->title = 'Запчасти для '. $category->name . ' ' . $subcategory->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
 ?>
 <?echo Breadcrumbs::widget([
     'homeLink' => ['label' => 'Главная', 'url' => Yii::$app->homeUrl],
@@ -14,13 +15,20 @@ use yii\widgets\Breadcrumbs;
     ],
 ]);?>
 
-
+<div class="catalog-caption">
+    Выберите интересующую запчасть для просмотра цены и наличия.
+</div>
 
 <div class="container">
     <?foreach($model as $item):?>
-        <div class="row">
+        <div class="row product-table-row">
 
-            <div class="col-lg-4">
+            <div class="col-lg-1 product-row-images">
+                <?=Html::a(Html::img('@web/images/camera.png', ['width' => 30]),
+                    Url::to('#'))?>
+            </div>
+
+            <div class="col-lg-5">
                 <div class="product-row-name">
                     <?=Html::a($item->name, Url::to($subcategory->alias . '/' . $item->alias))?>
                 </div>

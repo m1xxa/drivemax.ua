@@ -43,6 +43,17 @@ AppAsset::register($this);
         ['label' => 'Корзина (' . $cart . ')', 'url' => ['catalog/cart']],
     ];
 
+
+    echo Html::tag('div', Html::tag('div',
+        Html::img('@web/images/mts.jpg', ['width' => 20]) . ' ' .
+        Html::tag('span', '(050)46-36-136') . ' ' .
+        Html::img('@web/images/ks.jpg', ['width' => 20]) . ' ' .
+        Html::tag('span', '(067)108-49-49')
+
+        , ['class' => 'navbar-phone navbar-nav navbar-left']));
+
+
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
