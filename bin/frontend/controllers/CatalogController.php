@@ -45,7 +45,7 @@ class CatalogController extends Controller
         $currentCategory = Category::getCategoryByAlias($category);
         $currentSubcategory = Category::getCategoryByAlias($subcategory);
         $currentProduct = Category::getCategoryByAlias($product);
-        $model = Product::findByCategoryId($currentProduct->category_id, ['category', 'photo', 'productWarehouse']);
+        $model = Product::findByCategoryId($currentProduct->category_id);
 
         return $this->render('viewProduct', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
             'product' => $currentProduct, 'model' => $model]);

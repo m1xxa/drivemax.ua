@@ -20,7 +20,6 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
         ['label' => $product->name],
     ],
 ]);?>
-
 <div class="product-table">
 
     <div class="container">

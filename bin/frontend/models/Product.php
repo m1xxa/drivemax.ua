@@ -87,10 +87,8 @@ class Product extends ActiveRecord
         return $this->hasOne(Currency::className(), ['currency_id' => 'price_currency']);
     }
 
-    public static function findByCategoryId($categoryId, $arrayOfTables = array()) {
-        return Product::find()->joinWith($arrayOfTables)->
+    public static function findByCategoryId($categoryId) {
+        return Product::find()->joinWith('category', false)->
            where(['category.category_id' => $categoryId])->all();
     }
-
-
 }

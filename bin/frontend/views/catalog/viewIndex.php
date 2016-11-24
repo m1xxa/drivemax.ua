@@ -51,7 +51,7 @@ $this->title = '"ДрайвМакс" - интернет магазин запч�
                                             */?>
                                             </div>
                                             <div class="item-name">
-                                            <?=Html::a($category[$y]->name, Url::to('catalog/'
+                                            <?=Html::a($category[$y]->name, Url::to('@web/catalog/'
                                                 . $category[$y]->alias)) ;?>
                                             </div>
                                         </li>
