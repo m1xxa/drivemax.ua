@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use frontend\models\Orders;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -60,7 +61,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $orders = Orders::find()->where(['status' => 1])->all();
+        return $this->render('index', ['orders' => $orders]);
     }
 
     /**

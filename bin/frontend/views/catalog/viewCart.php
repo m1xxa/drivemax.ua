@@ -51,5 +51,14 @@ $this->title = 'Корзина. "ДрайвМакс" - интернет мага
 
 
 <div class="text-center">
-    <?=Html::a('Оформить заказ', Url::to('@web/order'), ['class' => 'btn btn-warning']);?>
+
+    <?php
+    if($isnullproducts) {
+        echo Html::a('Корзина пуста. Перейти в каталог', Url::to('@web/'), ['class' => 'btn btn-warning']);
+    }
+    else {
+        echo Html::a('Оформить заказ', Url::to('@web/order'), ['class' => 'btn btn-warning']);
+    }
+    ?>
 </div>
+

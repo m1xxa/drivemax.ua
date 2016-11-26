@@ -19,10 +19,10 @@ $this->title = '"ДрайвМакс" - интернет магазин запч�
             <div class="container">
                 <div class="row alphabet-buttons">
                     <?for($i='a'; $i<'z'; $i++):?>
-                        <span class="btn btn-default"><?=Html::a(strtoupper($i), Url::to('@web/catalog/filter/' . $i))?></span>
+                        <span><?=Html::a(strtoupper($i), Url::to('@web/catalog/filter/' . $i), ['class' =>  'btn btn-default'])?></span>
                     <?endfor;?>
-                    <span class="btn btn-default"><?=Html::a('Z', Url::to('@web/catalog/filter/z'))?></span>
-                    <span class="btn btn-default"><?=Html::a('ВСЕ', Url::to('@web/'))?></span>
+                    <span><?=Html::a('Z', Url::to('@web/catalog/filter/z'), ['class' =>  'btn btn-default'])?></span>
+                    <span><?=Html::a('ВСЕ', Url::to('@web/'), ['class' =>  'btn btn-default'])?></span>
                 </div>
             </div>
         </div>

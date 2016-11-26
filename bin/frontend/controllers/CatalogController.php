@@ -2,14 +2,13 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Cart;
 use frontend\models\Category;
 use frontend\models\OrderProducts;
 use frontend\models\Orders;
 use frontend\models\Product;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+
 
 
 class CatalogController extends Controller
@@ -46,18 +45,22 @@ class CatalogController extends Controller
         $currentSubcategory = Category::getCategoryByAlias($subcategory);
         $currentProduct = Category::getCategoryByAlias($product);
         $model = Product::findByCategoryId($currentProduct->category_id);
+        $cart = OrderProducts::find()->select('product_id')->
+            where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->asArray()->column();
 
-        return $this->render('viewProduct', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
-            'product' => $currentProduct, 'model' => $model]);
+        Yii::$app->user->setReturnUrl(Yii::$app->request->absoluteUrl);
+
+        return $this->render('viewProduct', ['cart'=> $cart, 'category' => $currentCategory,
+            'subcategory' => $currentSubcategory, 'product' => $currentProduct, 'model' => $model]);
     }
 
     public function actionCart() {
-        $query = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)]);
-        $dataProvider = new ActiveDataProvider(['query' => $query]);
 
         $orderProducts = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->all();
+        $isnullproducts = OrderProducts::find()->select('product_id')->
+        where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->asArray()->column()==null ? 1: 0;
 
-        return $this->render('viewCart', ['orderProducts' => $orderProducts]);
+        return $this->render('viewCart', ['orderProducts' => $orderProducts, 'isnullproducts' => $isnullproducts]);
     }
 
     public function actionAddToCart($product_id) {
@@ -82,7 +85,7 @@ class CatalogController extends Controller
         $orderProducts->photo = $product->photo->photo_name;
         $orderProducts->save();
 
-        return $this->redirect('@web/cart');
+        return $this->goBack();
     }
 
     public function actionCartClear(){
@@ -105,11 +108,20 @@ class CatalogController extends Controller
     public function actionOrder() {
         $model = Orders::find()->where(['id' => Yii::$app->session->get(self::SESSION_KEY)])->one();
         $products = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->all();
+        $cart = OrderProducts::find()->select('product_id')->
+        where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->asArray()->column();
+
+        if ($cart==null){
+            return $this->redirect('site/error');
+        };
 
         if($model->load(Yii::$app->request->post())){
             $model->status = 1;
             $model->save();
             Yii::$app->session->remove(self::SESSION_KEY);
+
+            $this->_mail('support@drivemax.com.ua', 'order@drivemax.com.ua', 'На сайте drivemax.com.ua оформлен заказ!', 'На сайте drivemax.com.ua оформлен заказ!');
+
 
             return $this->render('viewSuccess', ['model' => $model, 'products' => $products]);
         }
@@ -260,6 +272,17 @@ class CatalogController extends Controller
 
         return $model;
     }
+
+
+    private function _mail ($from, $to, $subj, $what){
+        $massage = $what;
+        $subject = $subj;
+        $subject = "=?utf-8?b?".base64_encode($subject)."?=";
+        $headers = "From: $from\r\nReply-to:$from\r\nContent-type:text/html;charset=utf-8\r\n";
+        mail($to, $subject, $massage, $headers);
+    }
+
+
 
 
 

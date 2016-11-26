@@ -44,13 +44,23 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
                     <div class="info"><?=Html::a('Подробнее', Url::to('#myModal'), ['class' => 'btn btn-info',
                         'data-toggle' => 'modal'])?></div>
                 </div>
-                <div class="col-lg-1"><?=$item->brand;?></div>
-                <div class="col-lg-1"><?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
+                <div class="col-lg-1 "><?=$item->brand;?></div>
+                <div class="col-lg-1 price-cell"><?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
                 <div class="col-lg-2">
                     <div class="qty">Доступно: <?=$item->qty?> шт</div>
                     <div class="delivery">Отправка в течении <?=$item->productWarehouse->warehouse_wait_days;?> дней</div>
                 </div>
-                <div class="col-lg-1"><?=Html::a('Заказать', Url::to('@web/catalog/addToCart/' . $item->product_id), ['class' => 'btn btn-success'])?></div>
+
+                <?php Pjax::begin(); ?>
+
+                <?php if(in_array($item->product_id, $cart)):?>
+                <div class="col-lg-1"><?=Html::a('В корзине',
+                        Url::to('@web/cart'), ['class' => 'btn btn-danger'])?></div>
+                <?php else:?>
+                <div class="col-lg-1"><?=Html::a('Заказать',
+                        Url::to('@web/catalog/addToCart/' . $item->product_id), ['class' => 'btn btn-success'])?></div>
+                <?php endif?>
+                <?php Pjax::end(); ?>
             </div>
 
             <div id="myModal" class="modal fade">
