@@ -40,6 +40,9 @@ class CatalogController extends Controller
             'model' => $model]);
     }
 
+
+
+
     public function actionViewProduct($category, $subcategory, $product){
         $currentCategory = Category::getCategoryByAlias($category);
         $currentSubcategory = Category::getCategoryByAlias($subcategory);
@@ -54,7 +57,20 @@ class CatalogController extends Controller
             'subcategory' => $currentSubcategory, 'product' => $currentProduct, 'model' => $model]);
     }
 
-    public function actionCart() {
+    public function actionCart($action = null, $id = null) {
+
+        if(!$action == null && !$id == null) {
+            if($action == 'up'){
+                $add = OrderProducts::find()->where(['id' => $id])->one();
+                $add->count++;
+                $add->save();
+            }
+            elseif($action == 'down'){
+                $down = OrderProducts::find()->where(['id' => $id])->one();
+                $down->count--;
+                $down->save();
+            }
+        }
 
         $orderProducts = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->all();
         $isnullproducts = OrderProducts::find()->select('product_id')->
@@ -129,12 +145,6 @@ class CatalogController extends Controller
         return $this->render('viewOrder', ['model' => $model]);
     }
 
-    public function actionAddPosition() {
-
-        return $this->render('viewTemp', ['$time' => date('H:i:s')]);
-
-    }
-
     public function actionFilter($letter){
         $model = Category::getParentCategoryByFilter($letter);
         $alphabetCategory = $this->getAlphabetCategoryArray($model);
@@ -142,7 +152,6 @@ class CatalogController extends Controller
 
         return $this->render('viewIndex', ['model' => $model, 'alphabetCategory' => $alphabetCategory]);
     }
-
 
     /*
      * create massive for alphabet output
@@ -272,7 +281,6 @@ class CatalogController extends Controller
 
         return $model;
     }
-
 
     private function _mail ($from, $to, $subj, $what){
         $massage = $what;

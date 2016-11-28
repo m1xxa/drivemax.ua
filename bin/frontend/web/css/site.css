@@ -223,9 +223,6 @@ a.desc:after {
     margin: 6px;
 }
 
-.product-row-images {
-    width: 4.3333%;
-}
 
 .table-label-row {
     margin: 7px;
@@ -286,3 +283,15 @@ a.desc:after {
     color: #ff254a;
 }
 
+.col-img {
+    width: 53px;
+}
+
+.col-img button {
+    padding: 3px;
+}
+
+.btn-photo {
+    margin: 0px;
+    padding: 0px;
+}

@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
@@ -36,13 +37,51 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
         <?foreach ($model as $item):?>
             <div class="row product-table-row">
                 <div class="col-lg-2">
-                    <?=Html::a(Html::img('@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 120]),
+                    <?
+                    Modal::begin([
+                        'header' => 'Фотографии товаров',
+                        'toggleButton' => [
+                            'label' => Html::img('@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 100]),
+                            'class' => 'btn-photo'
+                        ],
+                        'footer' => ''
+                    ]);
+
+                    echo Html::img('@web/images/catalog/products/' . $item->photo->photo_name);
+
+
+                    Modal::end();
+
+
+
+
+                    Html::a(Html::img('@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 120]),
                         Url::to('#myModal'), ['data-toggle' => 'modal']);?></div>
                 <div class="col-lg-4">
                     <div class="number">Номер: <?=$item->product_number;?></div>
                     <div class="name"><?=$item->product_name;?></div>
-                    <div class="info"><?=Html::a('Подробнее', Url::to('#myModal'), ['class' => 'btn btn-info',
-                        'data-toggle' => 'modal'])?></div>
+                    <div class="info">
+                        <?Modal::begin([
+                        'header' => $item->product_name,
+                        'toggleButton' => [
+                        'label' => 'Подробнее',
+                        'class' => 'btn btn-info'
+                        ],
+                        'footer' => ''
+                        ]);?>
+
+                        <div><b>Каталожный номер:</b>  <?=$item->product_number;?></div>
+                        <div><b>Полное описание:</b>  <?=$item->product_description;?></div>
+                        <div><b>Бренд:</b>  <?=$item->brand;?></div>
+                        <div><b>Цена:</b>  <?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
+                        <div><b>Фото:</b>  <?=Html::img(
+                                '@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 500])?></div>
+
+
+
+                        <?Modal::end();?>
+
+                    </div>
                 </div>
                 <div class="col-lg-1 "><?=$item->brand;?></div>
                 <div class="col-lg-1 price-cell"><?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
@@ -55,7 +94,7 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
 
                 <?php if(in_array($item->product_id, $cart)):?>
                 <div class="col-lg-1"><?=Html::a('В корзине',
-                        Url::to('@web/cart'), ['class' => 'btn btn-danger'])?></div>
+                        Url::to('@web/cart'), ['class' => 'btn btn-danger', 'data-pjax' => 0])?></div>
                 <?php else:?>
                 <div class="col-lg-1"><?=Html::a('Заказать',
                         Url::to('@web/catalog/addToCart/' . $item->product_id), ['class' => 'btn btn-success'])?></div>

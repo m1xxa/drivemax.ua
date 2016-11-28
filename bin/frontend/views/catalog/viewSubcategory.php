@@ -1,11 +1,17 @@
 <?php
 /* @var $this yii\web\View */
+use frontend\models\Product;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use himiklab\colorbox\Colorbox;
+use yii\bootstrap\Modal;
 
 $this->title = 'Запчасти для '. $category->name . ' ' . $subcategory->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
 ?>
+
+
+
 <?echo Breadcrumbs::widget([
     'homeLink' => ['label' => 'Главная', 'url' => Yii::$app->homeUrl],
     'itemTemplate' => "<li>{link}</li>\n",
@@ -19,13 +25,29 @@ $this->title = 'Запчасти для '. $category->name . ' ' . $subcategory-
     Выберите интересующую запчасть для просмотра цены и наличия.
 </div>
 
+
+
 <div class="container">
     <?foreach($model as $item):?>
         <div class="row product-table-row">
 
-            <div class="col-lg-1 product-row-images">
-                <?=Html::a(Html::img('@web/images/camera.png', ['width' => 30]),
-                    Url::to('#'))?>
+            <div class="col-lg-1 col-img">
+                <?
+                $products = Product::find()->joinWith(['category', 'photo'], false)->
+                where(['category.category_id' => $item->category_id])->groupBy('photo_name')->all();
+                Modal::begin([
+                    'header' => 'Фотографии товаров',
+                    'toggleButton' => [
+                        'label' => Html::a(Html::img('@web/images/camera.png', ['width' => 25])),
+                        'class' => 'btn'
+                    ],
+                    'footer' => ''
+                ]);
+                foreach($products as $product){
+                    echo Html::img('@web/images/catalog/products/' . $product->photo->photo_name, ['width' => 280]);
+                }
+                Modal::end();
+                ?>
             </div>
 
             <div class="col-lg-5">
@@ -39,6 +61,7 @@ $this->title = 'Запчасти для '. $category->name . ' ' . $subcategory-
                     <?
                     echo Html::a("Узнать наличие и цену", Url::to($subcategory->alias . '/' . $item->alias),
                         ['class' => 'btn btn-success']);
+
                     ?>
                 </div>
 
@@ -47,6 +70,3 @@ $this->title = 'Запчасти для '. $category->name . ' ' . $subcategory-
         </div>
     <?endforeach;?>
 </div>
-
-
-

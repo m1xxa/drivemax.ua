@@ -2,6 +2,7 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 $this->title = 'Корзина. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
 ?>
@@ -37,7 +38,13 @@ $this->title = 'Корзина. "ДрайвМакс" - интернет мага
                 </div>
                 <div class="col-lg-1"><?=$orderProduct->brand;?></div>
                 <div class="col-lg-1"><?=$orderProduct->price;?> грн</div>
-                <div class="col-lg-1"><?=$orderProduct->count;?> шт</div>
+                <div class="col-lg-1">
+                    <?php Pjax::begin(['enablePushState' => false]); ?>
+                    <?=Html::a('-', '/cart/down/' . $orderProduct->id, ['class' => 'btn-info btn'])?>
+                    <?=$orderProduct->count;?>
+                    <?=Html::a('+', '/cart/up/' . $orderProduct->id, ['class' => 'btn-info btn'])?>
+                    <?php Pjax::end(); ?>
+                </div>
                 <div class="col-lg-2">Отправка через: <?=$orderProduct->warehouse->warehouse_wait_days;?> дня</div>
                 <div class="col-lg-2"><?=Html::a('Удалить из корзины', Url::to('@web/catalog/delete/' . $orderProduct->product_id))?></div>
             </div>
@@ -61,4 +68,3 @@ $this->title = 'Корзина. "ДрайвМакс" - интернет мага
     }
     ?>
 </div>
-

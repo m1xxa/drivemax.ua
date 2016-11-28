@@ -57,4 +57,13 @@ return array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
+  'himiklab/yii2-colorbox-widget' => 
+  array (
+    'name' => 'himiklab/yii2-colorbox-widget',
+    'version' => '1.0.3.0',
+    'alias' => 
+    array (
+      '@himiklab/colorbox' => $vendorDir . '/himiklab/yii2-colorbox-widget',
+    ),
+  ),
 );

@@ -46,6 +46,7 @@ return [
                 '' => 'catalog/index',
                 'catalog' => 'catalog/index',
                 'cart' => 'catalog/cart',
+                'cart/<action:[\w]+>/<id:[\d]+>' => 'catalog/cart',
                 'order' => 'catalog/order',
                 'catalog/cart-clear' => 'catalog/cart-clear',
                 'catalog/filter/<letter:[\w]+>' => 'catalog/filter',
