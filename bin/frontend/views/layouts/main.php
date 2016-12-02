@@ -23,11 +23,15 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+
 <?php $this->beginBody() ?>
 
 <?$cart = \frontend\models\OrderProducts::find()->where(['order_id' => Yii::$app->session->get('order_id')])->count();?>
 
+
+
 <div class="wrap">
+
     <?php
     NavBar::begin([
         'brandLabel' => 'ДрайвМакс',
@@ -48,7 +52,10 @@ AppAsset::register($this);
         Html::img('@web/images/mts.jpg', ['width' => 20]) . ' ' .
         Html::tag('span', '(050)46-36-136') . ' ' .
         Html::img('@web/images/ks.jpg', ['width' => 20]) . ' ' .
-        Html::tag('span', '(067)108-49-49')
+        Html::tag('span', '(067)108-49-49') .
+
+        Html::tag('div', Html::tag('div', 'ICQ 209909926<br>email order@drivemax.com.ua<br>phone 0639898841',
+            ['class' => 'c-bubble c-bubble--bottom']) , ['class' => 'contacts-bubble'])
 
         , ['class' => 'navbar-phone navbar-nav navbar-left']));
 
@@ -61,14 +68,19 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
+
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+
         <?= $content ?>
     </div>
+
 </div>
+
+
 
 <footer class="footer">
     <div class="container">
@@ -88,6 +100,9 @@ AppAsset::register($this);
     ga('send', 'pageview');
 
 </script>
+
+
+
 </body>
 </html>
 <?php $this->endPage() ?>

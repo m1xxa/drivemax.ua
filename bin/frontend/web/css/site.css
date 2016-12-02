@@ -295,3 +295,11 @@ a.desc:after {
     margin: 0px;
     padding: 0px;
 }
+
+.contacts-bubble {
+    position: absolute;
+    display: none;
+
+
+
+}
