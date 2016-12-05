@@ -11,21 +11,79 @@ $this->title = '"ДрайвМакс" - интернет магазин запч�
 
 ?>
 <div class="site-index">
+
+
+
+    <!--
+    <div class="cat-menu">
+        <div class="cat-menu-item">
+            <div class="cat-menu-item-img-body">
+
+            </div>
+            <div class="cat-menu-item-text-active">
+                Кузов и оптика
+            </div>
+        </div>
+
+        <div class="cat-menu-item">
+            <div class="cat-menu-item-img-glass">
+
+            </div>
+            <div class="cat-menu-item-text">
+                Лобовые стекла
+            </div>
+        </div>
+
+        <div class="cat-menu-item">
+            <div class="cat-menu-item-img-radiator">
+
+            </div>
+            <div class="cat-menu-item-text">
+                Радиаторы
+            </div>
+        </div>
+
+        <div class="cat-menu-item">
+            <div class="cat-menu-item-img-lamp">
+
+            </div>
+            <div class="cat-menu-item-text">
+                Лампочки
+            </div>
+        </div>
+
+        <div class="cat-menu-item">
+            <div class="cat-menu-item-img-repair">
+
+            </div>
+            <div class="cat-menu-item-text">
+                Ремонт стекол
+            </div>
+        </div>
+
+        <div class="cat-menu-item">
+            <div class="cat-menu-item-img-table">
+
+            </div>
+            <div class="cat-menu-item-text">
+                Столики
+            </div>
+        </div>
+    </div>
+-->
+    <div class="line"></div>
+
     <div class="alphabet-container">
         <div class="alphabet-caption">
             Фильтр по алфавиту:
         </div>
-        <div class="alphabet-buttons">
-            <div class="container">
-                <div class="row alphabet-buttons">
-                    <?for($i='a'; $i<'z'; $i++):?>
-                        <span><?=Html::a(strtoupper($i), Url::to('@web/catalog/filter/' . $i), ['class' =>  'btn btn-default'])?></span>
-                    <?endfor;?>
-                    <span><?=Html::a('Z', Url::to('@web/catalog/filter/z'), ['class' =>  'btn btn-default'])?></span>
-                    <span><?=Html::a('ВСЕ', Url::to('@web/'), ['class' =>  'btn btn-default'])?></span>
-                </div>
+            <div class="alphabet-buttons">
+                <?for($i='a'; $i<'z'; $i++):?>
+                    <span><?=Html::a(strtoupper($i), Url::to('@web/catalog/filter/' . $i), ['class' =>  'btn btn-default'])?></span>
+                <?endfor;?>
+                <span><?=Html::a('Z', Url::to('@web/catalog/filter/z'), ['class' =>  'btn btn-default'])?></span>
+                <span><?=Html::a('ВСЕ', Url::to('@web/'), ['class' =>  'btn btn-default'])?></span>
             </div>
-        </div>
     </div>
     <div class="catalog-container">
         <div class="catalog-caption">
@@ -42,17 +100,17 @@ $this->title = '"ДрайвМакс" - интернет магазин запч�
                                     <ul>
                                         <li>
                                             <div class="item-photo">
-                                            <?if(!$category[$y]->photo==null){
-                                                echo Html::a(Html::img('@web/images/catalog/category/'
-                                                    . $category[$y]->photo, ['width' => 40 ]),
-                                                    Url::to('catalog/' . $category[$y]->alias));
-                                            } /*else echo Html::img('@web/images/not_found.jpg'
-                                                . $category[$y]->photo, ['width' => 40]);
-                                            */?>
+                                                <?if(!$category[$y]->photo==null){
+                                                    echo Html::a(Html::img('@web/images/catalog/category/'
+                                                        . $category[$y]->photo, ['width' => 40 ]),
+                                                        Url::to('catalog/' . $category[$y]->alias));
+                                                } /*else echo Html::img('@web/images/not_found.jpg'
+                                            . $category[$y]->photo, ['width' => 40]);
+                                        */?>
                                             </div>
                                             <div class="item-name">
-                                            <?=Html::a($category[$y]->name, Url::to('@web/catalog/'
-                                                . $category[$y]->alias)) ;?>
+                                                <?=Html::a($category[$y]->name, Url::to('@web/catalog/'
+                                                    . $category[$y]->alias)) ;?>
                                             </div>
                                         </li>
                                     </ul>
@@ -66,4 +124,6 @@ $this->title = '"ДрайвМакс" - интернет магазин запч�
 
 
     </div>
+
+
 </div>
