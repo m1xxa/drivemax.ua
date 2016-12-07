@@ -12,7 +12,7 @@ $this->title = 'Корзина. "ДрайвМакс" - интернет мага
     <?=Yii::$app->session->get('order_id')?>
 </div>
 
-<div class="container ">
+<div class="container-fluid">
 
     <div class="row table-label-row">
         <div class="col-lg-1"><b>Фото</b></div>
@@ -27,7 +27,7 @@ $this->title = 'Корзина. "ДрайвМакс" - интернет мага
     <div class="product-table-separate"></div>
 
     <?foreach ($orderProducts as $orderProduct):?>
-        <div class="container product-table">
+        <div class="container-fluid product-table">
             <div class="row product-table-row">
                 <div class="col-lg-1"><?=Html::a(Html::img('@web/images/catalog/products/'
                         . $orderProduct->photo, ['width' => 80]),

@@ -23,7 +23,7 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
 ]);?>
 <div class="product-table">
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2"><b>Фото</b></div>
             <div class="col-lg-4"><b>Наименование</b></div>
@@ -33,7 +33,7 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
         </div>
     </div>
     <div class="product-table-separate"></div>
-    <div class="container product-table">
+    <div class="container-fluid product-table">
         <?foreach ($model as $item):?>
             <div class="row product-table-row">
                 <div class="col-lg-2">

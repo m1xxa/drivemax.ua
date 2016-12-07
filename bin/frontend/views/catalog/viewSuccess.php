@@ -9,7 +9,7 @@ $this->title = '"ДрайвМакс" - интернет магазин запч�
 <br>
 <div>Вы заказали: </div>
 
-<div class="container">
+<div class="container-fluid">
 <?foreach ($products as $product):?>
     <div class="row">
         <div class="col-lg-2"><?=$product->product_number?></div>

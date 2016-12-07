@@ -71,7 +71,7 @@ $this->title = '"ДрайвМакс" - интернет магазин запч�
         </div>
     </div>
 -->
-    <div class="line"></div>
+
 
     <div class="alphabet-container">
         <div class="alphabet-caption">

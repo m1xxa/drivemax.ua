@@ -27,7 +27,7 @@ $this->title = 'Запчасти для '. $category->name . ' ' . $subcategory-
 
 
 
-<div class="container">
+<div class="container-fluid">
     <?foreach($model as $item):?>
         <div class="row product-table-row">
 

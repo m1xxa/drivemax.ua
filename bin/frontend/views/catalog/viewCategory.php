@@ -20,7 +20,7 @@ $this->title = 'Запчасти для '. $category->name . '. "ДрайвМа�
 </div>
 
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <?foreach($model as $item):?>
             <div class="category-block col-lg-2">
