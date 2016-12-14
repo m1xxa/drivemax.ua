@@ -44,6 +44,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'catalog/index',
+                'glass' => 'catalog/glass',
                 'catalog' => 'catalog/index',
                 'cart' => 'catalog/cart',
                 'cart/<action:[\w]+>/<id:[\d]+>' => 'catalog/cart',

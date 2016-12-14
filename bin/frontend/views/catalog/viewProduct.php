@@ -11,6 +11,8 @@ use yii\widgets\Pjax;
 /* @var $product \frontend\controllers\CatalogController*/
 
 $this->title = $product->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
+
+
 ?>
 <?echo Breadcrumbs::widget([
     'homeLink' => ['label' => 'Главная', 'url' => Yii::$app->homeUrl],
@@ -38,10 +40,16 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
             <div class="row product-table-row">
                 <div class="col-lg-2">
                     <?
+                    $image = '@web/images/not_found.jpg';
+                    if (!$item->photo->photo_name == null) {
+                        $image = '@web/images/catalog/products/' . $item->photo->photo_name;
+                    }
+
                     Modal::begin([
                         'header' => 'Фотографии товаров',
                         'toggleButton' => [
-                            'label' => Html::img('@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 100]),
+                            'label' => Html::img($image,
+                                    ['width' => 100]),
                             'class' => 'btn-photo'
                         ],
                         'footer' => ''
@@ -73,7 +81,7 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
                         <div><b>Каталожный номер:</b>  <?=$item->product_number;?></div>
                         <div><b>Полное описание:</b>  <?=$item->product_description;?></div>
                         <div><b>Бренд:</b>  <?=$item->brand;?></div>
-                        <div><b>Цена:</b>  <?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
+                        <div><b>Цена:</b>  <?=(int)($item->price_value * $item->currency->currency_value)?> грн.</div>
                         <div><b>Фото:</b>  <?=Html::img(
                                 '@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 500])?></div>
 
@@ -84,7 +92,7 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
                     </div>
                 </div>
                 <div class="col-lg-1 "><?=$item->brand;?></div>
-                <div class="col-lg-1 price-cell"><?=$item->price_value;?> <?=$item->currency->currency_caption;?></div>
+                <div class="col-lg-1 price-cell"><?=(int)($item->price_value * $item->currency->currency_value)?> грн.</div>
                 <div class="col-lg-2">
                     <div class="qty">Доступно: <?=$item->qty?> шт</div>
                     <div class="delivery">Отправка в течении <?=$item->productWarehouse->warehouse_wait_days;?> дней</div>
@@ -117,7 +125,7 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
                             </div>
 
                             <div class="modal-price">
-                                <b>Цена:</b> <?=$item->price_value;?> <?=$item->currency->currency_caption;?>
+                                <b>Цена:</b> <?=(int)($item->price_value * $item->currency->currency_value)?> грн.
                             </div>
 
 

@@ -23,6 +23,11 @@ class ComposerStaticInit731049d5d7836934d332dc962436736e
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
+        'k' => 
+        array (
+            'kartik\\typeahead\\' => 17,
+            'kartik\\base\\' => 12,
+        ),
         'h' => 
         array (
             'himiklab\\colorbox\\' => 18,
@@ -69,6 +74,14 @@ class ComposerStaticInit731049d5d7836934d332dc962436736e
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'kartik\\typeahead\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-typeahead',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
         ),
         'himiklab\\colorbox\\' => 
         array (

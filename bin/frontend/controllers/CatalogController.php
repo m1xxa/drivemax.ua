@@ -3,10 +3,13 @@
 namespace frontend\controllers;
 
 use frontend\models\Category;
+use frontend\models\Glass;
 use frontend\models\OrderProducts;
 use frontend\models\Orders;
 use frontend\models\Product;
+use frontend\models\search\GlassSearch;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 
@@ -36,6 +39,7 @@ class CatalogController extends Controller
         $currentCategory = Category::getCategoryByAlias($category);
         $currentSubcategory = Category::getCategoryByAlias($subcategory);
         $model = Category::getCategoryByParentId($currentSubcategory->category_id);
+
         return $this->render('viewSubcategory', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
             'model' => $model]);
     }
@@ -93,12 +97,12 @@ class CatalogController extends Controller
         $orderProducts->order_id = Yii::$app->session->get(self::SESSION_KEY);
         $orderProducts->product_id = $product->product_id;
         $orderProducts->product_number = $product->product_number;
-        $orderProducts->price = $product->price_value * $product->currency->currency_value;
+        $orderProducts->price = (int)($product->price_value * $product->currency->currency_value);
         $orderProducts->product_name = $product->product_name;
-        $orderProducts->brand = $product->brand;
+        if (!$product->brand == ""){$orderProducts->brand = $product->brand;};
+        if (!$product->photo->photo_name == ""){$orderProducts->photo = $product->photo->photo_name;};
         $orderProducts->warehouse_id = $product->warehouse;
         $orderProducts->count = 1;
-        $orderProducts->photo = $product->photo->photo_name;
         $orderProducts->save();
 
         return $this->goBack();
@@ -151,6 +155,14 @@ class CatalogController extends Controller
 
 
         return $this->render('viewIndex', ['model' => $model, 'alphabetCategory' => $alphabetCategory]);
+    }
+
+    public function actionGlass(){
+
+        $searchModel = new GlassSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('viewGlass', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel,]);
     }
 
     /*
@@ -276,7 +288,7 @@ class CatalogController extends Controller
         }
 
         ksort($alphabetCategoryArray);
-        $model = array_chunk($alphabetCategoryArray, 6, true);
+        $model = array_chunk($alphabetCategoryArray, 5, true);
 
 
         return $model;

@@ -29,8 +29,15 @@ $this->title = 'Корзина. "ДрайвМакс" - интернет мага
     <?foreach ($orderProducts as $orderProduct):?>
         <div class="container-fluid product-table">
             <div class="row product-table-row">
-                <div class="col-lg-1"><?=Html::a(Html::img('@web/images/catalog/products/'
-                        . $orderProduct->photo, ['width' => 80]),
+
+                <?
+                $image = '@web/images/not_found.jpg';
+                if (!$orderProduct->photo == null) {
+                    $image = '@web/images/catalog/products/' . $orderProduct->photo;
+                }
+                ?>
+
+                <div class="col-lg-1"><?=Html::a(Html::img($image, ['width' => 80]),
                         Url::to('#myModal'), ['data-toggle' => 'modal']);?></div>
                 <div class="col-lg-4">
                     <div class="number">Номер: <?=$orderProduct->product_number;?></div>

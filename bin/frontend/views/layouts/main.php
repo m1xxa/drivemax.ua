@@ -65,16 +65,18 @@ AppAsset::register($this);
         Html::tag('span','',['class' => 'nav-search-icon glyphicon glyphicon-search']),
         ['class' => 'navbar-form navbar-right']);
 
+
     echo Html::tag('div', Html::tag('div',
         Html::img('@web/images/mts.jpg', ['width' => 20]) . ' ' .
         Html::tag('span', '(050)46-36-136') . ' ' .
         Html::img('@web/images/ks.jpg', ['width' => 20]) . ' ' .
         Html::tag('span', '(067)108-49-49') . ' ' .
         Html::img('@web/images/ks.jpg', ['width' => 20]) . ' ' .
-        Html::tag('span', '(063)789-95-34') .
+        Html::tag('span', '(063)789-95-34 >>') .
 
         Html::tag('div', Html::tag('div', 'ICQ: 209909926<br>email: order@drivemax.com.ua<br>skype: drivemax',
-            ['class' => 'c-bubble c-bubble--bottom']) , ['class' => 'contacts-bubble'])
+            ['class' => 'c-bubble c-bubble--bottom', 'data-toggle' => 'popover', 'data-placement' => 'bottom',
+                'data-content' => 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus']) , ['class' => 'contacts-bubble'])
 
         , ['class' => 'navbar-phone navbar-nav navbar-right']));
 
@@ -90,7 +92,7 @@ AppAsset::register($this);
                             <span class="glyphicon glyphicon-tasks"></span>
                             Кузов и оптика
                         </a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-tasks"></span>Стекла</a></li>
+                    <li><a href="<?=Url::to('@web/glass');?>"><span class="glyphicon glyphicon-tasks"></span>Стекла</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-tasks"></span>Лампочки</a></li>
                 </ul>
 

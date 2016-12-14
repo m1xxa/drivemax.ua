@@ -1,7 +1,12 @@
 <?php
 /* @var $this yii\web\View */
+use frontend\models\Category;
+use kartik\typeahead\Typeahead;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+
+
 use yii\widgets\Breadcrumbs;
 
 $this->title = 'Запчасти для '. $category->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
@@ -15,9 +20,12 @@ $this->title = 'Запчасти для '. $category->name . '. "ДрайвМа�
     ],
 ]);?>
 
-<div class="catalog-caption">
-    Выберите марку своего автомобиля.
-</div>
+
+
+        <div class="catalog-caption">
+            Выберите марку своего автомобиля
+        </div>
+
 
 
 <div class="container-fluid">

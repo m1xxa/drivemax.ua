@@ -58,7 +58,7 @@ class Category extends \yii\db\ActiveRecord
     }
 
     public static function getCategoryByParentId($parent_id){
-        return Category::find()->where(['parent_id' => $parent_id])->all();
+        return Category::find()->where(['parent_id' => $parent_id])->orderBy('name')->all();
     }
 
     public static function getParentCategoryByFilter($filter){
