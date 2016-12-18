@@ -15,23 +15,17 @@ $this->title = 'Магазин автозапчастей "ДрайвМакс". 
     <h1>Каталог запчастей кузова и оптики.</h1>
 
     <div class="alphabet-container">
-        <div class="alphabet-caption">
-            Фильтр по алфавиту:
+        <div class="alphabet-caption">Фильтр по алфавиту:</div>
+        <div class="alphabet-buttons">
+            <?for($i='A'; $i<'Z'; $i++):?>
+                <span><?=Html::a($i, Url::to('@web/catalog/filter/' . $i), ['class' =>  'btn btn-default'])?></span>
+            <?endfor;?>
+            <span><?=Html::a('Z', Url::to('@web/catalog/filter/z'), ['class' =>  'btn btn-default'])?></span>
+            <span><?=Html::a('ВСЕ', Url::to('@web/'), ['class' =>  'btn btn-default'])?></span>
         </div>
-            <div class="alphabet-buttons">
-                <?for($i='A'; $i<'Z'; $i++):?>
-                    <span><?=Html::a($i, Url::to('@web/catalog/filter/' . $i), ['class' =>  'btn btn-default'])?></span>
-                <?endfor;?>
-                <span><?=Html::a('Z', Url::to('@web/catalog/filter/z'), ['class' =>  'btn btn-default'])?></span>
-                <span><?=Html::a('ВСЕ', Url::to('@web/'), ['class' =>  'btn btn-default'])?></span>
-            </div>
     </div>
     <div class="catalog-container">
-
-                <div class="catalog-caption ">
-                    Для начала поиска выберите модель
-                </div>
-
+        <div class="catalog-caption ">Для начала поиска выберите модель</div>
         <div class="catalog-entry">
             <?for($i=0; $i<count($alphabetCategory); $i++):?>
                 <div class="col-lg-3">
@@ -63,9 +57,5 @@ $this->title = 'Магазин автозапчастей "ДрайвМакс". 
                 </div>
             <?endfor?>
         </div>
-
-
     </div>
-
-
 </div>

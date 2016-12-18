@@ -7,6 +7,7 @@ use frontend\models\Glass;
 use frontend\models\OrderProducts;
 use frontend\models\Orders;
 use frontend\models\Product;
+use frontend\models\ProductCategory;
 use frontend\models\search\GlassSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -28,7 +29,14 @@ class CatalogController extends Controller
 
     public function actionViewCategory($category){
         $currentCategory = Category::getCategoryByAlias($category);
+
         $model = Category::getCategoryByParentId($currentCategory->category_id);
+
+        foreach($model as $key => $value) {
+            $s = Category::getCategoryByParentId($value['category_id']);
+            if($s==null){unset($model[$key]);}
+        }
+
         uasort($model, function($a, $b){
             return ($a['name'] < $b['name']) ? -1 : 1;
         });
@@ -40,22 +48,56 @@ class CatalogController extends Controller
         $currentSubcategory = Category::getCategoryByAlias($subcategory);
         $model = Category::getCategoryByParentId($currentSubcategory->category_id);
 
+        foreach($model as $key => $value) {
+            $s = Product::findByCategoryId($value['category_id']);
+            if($s==null){unset($model[$key]);}
+        }
+
+
         return $this->render('viewSubcategory', ['category' => $currentCategory, 'subcategory' => $currentSubcategory,
             'model' => $model]);
     }
 
 
+    public function actionViewProduct($category, $subcategory, $product, $action = null, $id = null){
 
 
-    public function actionViewProduct($category, $subcategory, $product){
+
+        if ($action=='add' && !$id==null){
+
+            if(!Yii::$app->session->has(self::SESSION_KEY)){
+                $order = new Orders();
+                $order->status = 0;
+                $order->save();
+                Yii::$app->session->set(self::SESSION_KEY, $order->id);
+            }
+
+            $addProduct = Product::find()->where(['product_id' => $id])->one();
+
+            $orderProducts = new OrderProducts();
+            $orderProducts->order_id = Yii::$app->session->get(self::SESSION_KEY);
+            $orderProducts->product_id = $addProduct->product_id;
+            $orderProducts->product_number = $addProduct->product_number;
+            $orderProducts->price = (int)($addProduct->price_value * $addProduct->currency->currency_value);
+            $orderProducts->product_name = $addProduct->product_name;
+            if (!$addProduct->brand == ""){$orderProducts->brand = $addProduct->brand;};
+            if (!$addProduct->photo->photo_name == ""){$orderProducts->photo = $addProduct->photo->photo_name;};
+            $orderProducts->warehouse_id = $addProduct->warehouse;
+            $orderProducts->count = 1;
+            $orderProducts->save();
+        }
         $currentCategory = Category::getCategoryByAlias($category);
         $currentSubcategory = Category::getCategoryByAlias($subcategory);
         $currentProduct = Category::getCategoryByAlias($product);
         $model = Product::findByCategoryId($currentProduct->category_id);
-        $cart = OrderProducts::find()->select('product_id')->
-            where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->asArray()->column();
+        $cartAC = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->asArray()->all();
+        $cart[] = 0;
+        foreach($cartAC as $c){
+            $cart[$c['product_id']] = $c;
+        }
 
-        Yii::$app->user->setReturnUrl(Yii::$app->request->absoluteUrl);
+
+
 
         return $this->render('viewProduct', ['cart'=> $cart, 'category' => $currentCategory,
             'subcategory' => $currentSubcategory, 'product' => $currentProduct, 'model' => $model]);
@@ -77,35 +119,14 @@ class CatalogController extends Controller
         }
 
         $orderProducts = OrderProducts::find()->where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->all();
-        $isnullproducts = OrderProducts::find()->select('product_id')->
+        $isNullProducts = OrderProducts::find()->select('product_id')->
         where(['order_id' => Yii::$app->session->get(self::SESSION_KEY)])->asArray()->column()==null ? 1: 0;
-
-        return $this->render('viewCart', ['orderProducts' => $orderProducts, 'isnullproducts' => $isnullproducts]);
-    }
-
-    public function actionAddToCart($product_id) {
-        if(!Yii::$app->session->has(self::SESSION_KEY)){
-            $order = new Orders();
-            $order->status = 0;
-            $order->save();
-            Yii::$app->session->set(self::SESSION_KEY, $order->id);
+        $sum = 0;
+        foreach($orderProducts as $orderProduct) {
+            $sum += $orderProduct->count * $orderProduct->price;
         }
 
-        $product = Product::find()->where(['product_id' => $product_id])->one();
-
-        $orderProducts = new OrderProducts();
-        $orderProducts->order_id = Yii::$app->session->get(self::SESSION_KEY);
-        $orderProducts->product_id = $product->product_id;
-        $orderProducts->product_number = $product->product_number;
-        $orderProducts->price = (int)($product->price_value * $product->currency->currency_value);
-        $orderProducts->product_name = $product->product_name;
-        if (!$product->brand == ""){$orderProducts->brand = $product->brand;};
-        if (!$product->photo->photo_name == ""){$orderProducts->photo = $product->photo->photo_name;};
-        $orderProducts->warehouse_id = $product->warehouse;
-        $orderProducts->count = 1;
-        $orderProducts->save();
-
-        return $this->goBack();
+        return $this->render('viewCart', ['orderProducts' => $orderProducts, 'isNullProducts' => $isNullProducts, 'sum' => $sum]);
     }
 
     public function actionCartClear(){

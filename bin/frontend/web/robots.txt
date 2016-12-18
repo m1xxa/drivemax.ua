@@ -1,2 +1,12 @@
 User-agent: *
-Disallow:
+Disallow: /*thickbox_default/*
+Disallow: /*cart_default/*
+Disallow: /media
+Disallow: /admin
+Disallow: /*home_default/*
+Disallow: /images
+Disallow: /skin
+Disallow: /*large_default/*
+Disallow: /cart
+Disallow: /c/*
+Disallow: /catalog/filter/*

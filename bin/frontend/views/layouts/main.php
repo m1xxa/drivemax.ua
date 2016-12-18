@@ -10,6 +10,7 @@ use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\widgets\Pjax;
 
 AppAsset::register($this);
 ?>
@@ -51,13 +52,14 @@ AppAsset::register($this);
     ]);
     $menuItems = [
 
-        ['label' =>  'Корзина  (' . $cart . ')', 'url' => ['catalog/cart']],
+        ['label' =>  'Корзина  (' . $cart . ')', 'url' => ['catalog/cart'], 'linkOptions' => ['class' => 'menu-item', 'data-pjax' => 0]],
     ];
-
+    Pjax::begin(['enablePushState' => false, 'options' => ['id' => 'cart-button-pjax']]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-basket navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);
+    Pjax::end();
 
     echo Html::tag(
         'form',
@@ -71,7 +73,7 @@ AppAsset::register($this);
         Html::tag('span', '(050)46-36-136') . ' ' .
         Html::img('@web/images/ks.jpg', ['width' => 20]) . ' ' .
         Html::tag('span', '(067)108-49-49') . ' ' .
-        Html::img('@web/images/ks.jpg', ['width' => 20]) . ' ' .
+        Html::img('@web/images/lifecell.jpg', ['width' => 20]) . ' ' .
         Html::tag('span', '(063)789-95-34 >>') .
 
         Html::tag('div', Html::tag('div', 'ICQ: 209909926<br>email: order@drivemax.com.ua<br>skype: drivemax',
@@ -82,6 +84,7 @@ AppAsset::register($this);
 
     NavBar::end();
     ?>
+
 
     <div class="container-fluid">
         <div class="row main-block">

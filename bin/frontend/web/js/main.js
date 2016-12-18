@@ -18,20 +18,26 @@ $navbarPhone.on('mouseout', function(){
 $(function () {
 
     var location = window.location.pathname;
-    console.log('loaction is: ' + location);
     var cur_url = '/' + location.split('/').pop();
-    console.log('cur_url is: ' + cur_url);
 
     $('#sidebar li').each(function () {
 
         var link = $(this).find('a').attr('href');
-        console.log('link is: ' + link);
 
         if(location == link) $(this).addClass('active');
 
     });
 
     $('[data-toggle="popover"]').popover();
+
+
+    $('.add-button-pjax').on('pjax:end', function(){
+        $.pjax.reload('#cart-button-pjax');
+    });
+
+    $('.change-button-pjax').on('pjax:end', function(){
+        $.pjax.reload('#cart-sum-pjax');
+    });
 
 
 

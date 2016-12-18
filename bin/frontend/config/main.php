@@ -57,6 +57,7 @@ return [
                 'catalog/<category:[\w-]+>' => 'catalog/view-category',
                 'catalog/<category:[\w-]+>/<subcategory:[\w-]+>' => 'catalog/view-subcategory',
                 'catalog/<category:[\w-]+>/<subcategory:[\w-]+>/<product:[\w-]+>' => 'catalog/view-product',
+                'catalog/<category:[\w-]+>/<subcategory:[\w-]+>/<product:[\w-]+>/<action:[\w]+>/<id:[\d]+>' => 'catalog/view-product',
             ],
         ],
       

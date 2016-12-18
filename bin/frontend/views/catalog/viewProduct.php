@@ -10,7 +10,8 @@ use yii\widgets\Pjax;
 /* @var $subcategory \frontend\controllers\CatalogController*/
 /* @var $product \frontend\controllers\CatalogController*/
 
-$this->title = $product->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
+$this->title = $product->name
+    . ' купить с доставкой по Украине. "ДрайвМакс" - интернет-магазин автозапчастей для иномарок.';
 
 
 ?>
@@ -24,7 +25,6 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
     ],
 ]);?>
 <div class="product-table">
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2"><b>Фото</b></div>
@@ -61,8 +61,6 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
                     Modal::end();
 
 
-
-
                     Html::a(Html::img('@web/images/catalog/products/' . $item->photo->photo_name, ['width' => 120]),
                         Url::to('#myModal'), ['data-toggle' => 'modal']);?></div>
                 <div class="col-lg-4">
@@ -91,24 +89,37 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
 
                     </div>
                 </div>
-                <div class="col-lg-1 "><?=$item->brand;?></div>
-                <div class="col-lg-1 price-cell"><?=(int)($item->price_value * $item->currency->currency_value)?> грн.</div>
+                <div class="col-lg-1 ">
+                    <?=$item->brand;?>
+                </div>
+                <div class="col-lg-1 price-cell">
+                    <?=(int)($item->price_value * $item->currency->currency_value)?> грн
+                </div>
                 <div class="col-lg-2">
                     <div class="qty">Доступно: <?=$item->qty?> шт</div>
                     <div class="delivery">Отправка в течении <?=$item->productWarehouse->warehouse_wait_days;?> дней</div>
                 </div>
+                <div class="col-lg-1">
 
-                <?php Pjax::begin(); ?>
+                    <?php Pjax::begin(['enablePushState' => false, 'options' => ['class' => 'add-button-pjax']]); ?>
 
-                <?php if(in_array($item->product_id, $cart)):?>
-                <div class="col-lg-1"><?=Html::a('В корзине',
-                        Url::to('@web/cart'), ['class' => 'btn btn-danger', 'data-pjax' => 0])?></div>
-                <?php else:?>
-                <div class="col-lg-1"><?=Html::a('Заказать',
-                        Url::to('@web/catalog/addToCart/' . $item->product_id), ['class' => 'btn btn-success'])?></div>
-                <?php endif?>
-                <?php Pjax::end(); ?>
+                    <?php
+
+                    if(array_key_exists($item->product_id, $cart)):?>
+
+                        <?=Html::a('В корзине ' . $cart[$item->product_id]['count'] . ' шт',
+                            Url::to('@web/cart'), ['class' => 'btn btn-danger', 'data-pjax' => 0])?>
+                    <?php else:?>
+                        <?=Html::a('Заказать', Url::to('/catalog/' . $category->alias . '/' . $subcategory->alias) . '/'
+                            . $product->alias . '/add/'. $item->product_id, ['class' => 'btn btn-success add-button'])?>
+
+                    <?php endif?>
+
+                    <?php Pjax::end(); ?>
+
+                </div>
             </div>
+
 
             <div id="myModal" class="modal fade">
                 <div class="modal-dialog">
@@ -141,8 +152,13 @@ $this->title = $product->name . '. "ДрайвМакс" - интернет ма�
                     </div>
                 </div>
             </div>
-
         <?endforeach;?>
     </div>
 
+
+
+
+
 </div>
+
+

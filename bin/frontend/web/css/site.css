@@ -7,8 +7,8 @@ body {
 
 }
 
-.site-index h1 {
-    font-size: 18px;
+.main-block h1 {
+    font-size: 20px;
     text-align: center;
     color: #a0a0a0;
 }
@@ -140,7 +140,7 @@ a.desc:after {
 
 .catalog-caption {
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     color: #a0a0a0;
     padding: 18px;
 }
@@ -216,7 +216,7 @@ a.desc:after {
 
 .product-table-row {
 
-    padding: 15px;
+    padding: 4px;
 }
 
 .product-table-row:hover {
@@ -455,7 +455,7 @@ a.desc:after {
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     text-decoration: none;
-    background-color: blue;
+    background-color: #5bc0de;
     color: white;
 }
 
@@ -464,7 +464,7 @@ a.desc:after {
 }
 
 .nav-sidebar > .active {
-    background-color: blue;
+    background-color: #5bc0de;
 }
 
 .nav-sidebar > .active > a{
@@ -511,8 +511,25 @@ a.desc:after {
     }
 }
 
+.btn-price {
+    padding: 4px;
+}
 
+.cart-sum {
+    font-size: 16px;
+    margin: 20px;
+    font-weight: bold;
+}
 
+.navbar-white .navbar-nav > .active > a {
+    background-color: #5bc0de;
+    font-weight: bold;
+    color: white;
+}
+
+.menu-item {
+    margin-left: 10px;
+}
 
 
 

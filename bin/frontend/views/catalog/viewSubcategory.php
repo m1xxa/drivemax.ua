@@ -1,5 +1,8 @@
 <?php
 /* @var $this yii\web\View */
+/* @var $category */
+/* @var $subcategory */
+
 use frontend\models\Product;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -7,10 +10,9 @@ use yii\widgets\Breadcrumbs;
 use himiklab\colorbox\Colorbox;
 use yii\bootstrap\Modal;
 
-$this->title = 'Запчасти для '. $category->name . ' ' . $subcategory->name . '. "ДрайвМакс" - интернет магазин запчастей для иномарок.';
+$this->title = 'Купить запчасти для '. $category->name . ' ' . $subcategory->name
+    . ' с доставкой по Украине. "ДрайвМакс" - интернет-магазин автозапчастей для иномарок.';
 ?>
-
-
 
 <?echo Breadcrumbs::widget([
     'homeLink' => ['label' => 'Главная', 'url' => Yii::$app->homeUrl],
@@ -21,11 +23,9 @@ $this->title = 'Запчасти для '. $category->name . ' ' . $subcategory-
     ],
 ]);?>
 
-<div class="catalog-caption">
-    Выберите интересующую запчасть для просмотра цены и наличия.
-</div>
+<h1>Автозапчасти кузова и оптики для <?=$category->name?> <?=$subcategory->name?></h1>
 
-
+<div class="catalog-caption">Выберите интересующую запчасть для просмотра цены и наличия.</div>
 
 <div class="container-fluid">
     <?foreach($model as $item):?>
@@ -60,7 +60,7 @@ $this->title = 'Запчасти для '. $category->name . ' ' . $subcategory-
                 <div class="product-row-button">
                     <?
                     echo Html::a("Узнать наличие и цену", Url::to($subcategory->alias . '/' . $item->alias),
-                        ['class' => 'btn btn-success']);
+                        ['class' => 'btn btn-success btn-price']);
 
                     ?>
                 </div>
